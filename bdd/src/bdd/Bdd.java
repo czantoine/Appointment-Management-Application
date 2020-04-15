@@ -13,7 +13,7 @@ public class Bdd {
       String user = "root";
       String passwd = "root";
 
-      Connection myConn= DriverManager.getConnection(url,user,passwd);
+      Connection con= DriverManager.getConnection(url,user,passwd);
       System.out.println("Connexion effective !");         
          
     } catch (Exception e) {
