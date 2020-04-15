@@ -36,6 +36,7 @@ public class Mainmenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         nouveaupatient = new javax.swing.JButton();
+        listepatient = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,6 +52,13 @@ public class Mainmenu extends javax.swing.JFrame {
             }
         });
 
+        listepatient.setText("Consulter la liste des patients");
+        listepatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listepatientActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -61,7 +69,9 @@ public class Mainmenu extends javax.swing.JFrame {
                 .addGap(228, 228, 228))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nouveaupatient)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nouveaupatient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(listepatient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -71,7 +81,9 @@ public class Mainmenu extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(nouveaupatient)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(listepatient)
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -93,6 +105,12 @@ public class Mainmenu extends javax.swing.JFrame {
        egtpatient.setVisible(true);
        setVisible(false);
     }//GEN-LAST:event_nouveaupatientActionPerformed
+
+    private void listepatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listepatientActionPerformed
+       ListPatients lstpatient = new ListPatients();
+       lstpatient.setVisible(true);
+       setVisible(false);
+    }//GEN-LAST:event_listepatientActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,6 +151,7 @@ public class Mainmenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton listepatient;
     private javax.swing.JButton nouveaupatient;
     // End of variables declaration//GEN-END:variables
 
