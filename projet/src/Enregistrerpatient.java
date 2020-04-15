@@ -42,20 +42,20 @@ public class Enregistrerpatient extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtNom = new javax.swing.JTextField();
+        txtPrenom = new javax.swing.JTextField();
+        txtNd_Prenom = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbSexe = new javax.swing.JComboBox<>();
         ajouterpatient = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cmbClassification = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        cmbConnaissance = new javax.swing.JComboBox<>();
+        txtProfession_actuelle = new javax.swing.JTextField();
+        txtProfession_anterieur = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,21 +68,21 @@ public class Enregistrerpatient extends javax.swing.JFrame {
 
         jLabel4.setText("Second Prénom :");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtNomActionPerformed(evt);
             }
         });
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtPrenom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtPrenomActionPerformed(evt);
             }
         });
 
         jLabel5.setText("Sexe :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homme", "Femme", "Autre" }));
+        cmbSexe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homme", "Femme", "Autre" }));
 
         ajouterpatient.setText("Ajouter");
         ajouterpatient.addActionListener(new java.awt.event.ActionListener() {
@@ -93,15 +93,21 @@ public class Enregistrerpatient extends javax.swing.JFrame {
 
         jLabel6.setText("Classification :");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enfant", "Ado", "Femme", "Homme", "Couple" }));
+        cmbClassification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Enfant", "Ado", "Femme", "Homme", "Couple" }));
 
         jLabel7.setText("Connaissance :");
 
-        jLabel8.setText("Profession acutelle : ");
+        jLabel8.setText("Profession actuelle : ");
 
         jLabel9.setText("Profession antérieur :");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Autre patient", "Docteur", "Bouche à oreille", "Pages Jaunes", "Internet", "Autre" }));
+        cmbConnaissance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Autre patient", "Docteur", "Bouche à oreille", "Pages Jaunes", "Internet", "Autre" }));
+
+        txtProfession_anterieur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProfession_anterieurActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -122,10 +128,10 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField3)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1)
-                    .addComponent(jComboBox1, 0, 113, Short.MAX_VALUE))
+                    .addComponent(txtNd_Prenom)
+                    .addComponent(txtPrenom)
+                    .addComponent(txtNom)
+                    .addComponent(cmbSexe, 0, 113, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7)
@@ -134,10 +140,10 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField4)
-                    .addComponent(jComboBox3, 0, 1, Short.MAX_VALUE)
-                    .addComponent(jTextField5)
-                    .addComponent(jComboBox2, 0, 147, Short.MAX_VALUE))
+                    .addComponent(txtProfession_actuelle)
+                    .addComponent(cmbConnaissance, 0, 1, Short.MAX_VALUE)
+                    .addComponent(txtProfession_anterieur)
+                    .addComponent(cmbClassification, 0, 147, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -148,26 +154,26 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbConnaissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProfession_actuelle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNd_Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtProfession_anterieur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbSexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(ajouterpatient)
@@ -188,27 +194,27 @@ public class Enregistrerpatient extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtNomActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtPrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrenomActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtPrenomActionPerformed
 
     private void ajouterpatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterpatientActionPerformed
         try{
-            String query = "INSERT INTO `patient`(`Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`) VALUES ([?],[?],[?],[?],[?],[?],[?],[?]) ";
+            String query = "INSERT INTO `patient`(`Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`) VALUES (?,?,?,?,?,?,?,?) ";
             con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
             pst = con.prepareStatement(query);
             pst.setString(1, txtNom.getText());
             pst.setString(2, txtPrenom.getText());
             pst.setString(3, txtNd_Prenom.getText());
             pst.setString(4, cmbSexe.getSelectedItem().toString());
-            pst.setString(5, cmbConnaissance.getSelectedText());
-            pst.setString(6, txtProfession_acutelle.getText());
+            pst.setString(5, cmbConnaissance.getSelectedItem().toString());
+            pst.setString(6, txtProfession_actuelle.getText());
             pst.setString(7, txtProfession_anterieur.getText());
-            pst.setString(8, cmbClassification.getSelectedText());
+            pst.setString(8, cmbClassification.getSelectedItem().toString());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null,"Patient ajouté");
                             
@@ -216,6 +222,10 @@ public class Enregistrerpatient extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
     }//GEN-LAST:event_ajouterpatientActionPerformed
+
+    private void txtProfession_anterieurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProfession_anterieurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProfession_anterieurActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,9 +265,9 @@ public class Enregistrerpatient extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ajouterpatient;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> cmbClassification;
+    private javax.swing.JComboBox<String> cmbConnaissance;
+    private javax.swing.JComboBox<String> cmbSexe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -268,10 +278,10 @@ public class Enregistrerpatient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField txtNd_Prenom;
+    private javax.swing.JTextField txtNom;
+    private javax.swing.JTextField txtPrenom;
+    private javax.swing.JTextField txtProfession_actuelle;
+    private javax.swing.JTextField txtProfession_anterieur;
     // End of variables declaration//GEN-END:variables
 }
