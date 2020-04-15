@@ -157,7 +157,7 @@ public class Loginform extends javax.swing.JFrame {
             if(rs.next()){
                 Mainmenu menu = new Mainmenu();
                 menu.setVisible(true);
-                setVisble(false);
+                setVisible(false);
             }
             else {
                 JOptionPane.showMessageDialog(null,"nop");

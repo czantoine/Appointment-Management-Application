@@ -56,8 +56,11 @@ public class Enregistrerpatient extends javax.swing.JFrame {
         cmbConnaissance = new javax.swing.JComboBox<>();
         txtProfession_actuelle = new javax.swing.JTextField();
         txtProfession_anterieur = new javax.swing.JTextField();
+        back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel1.setText("Enregistrer un nouveau patient");
@@ -109,6 +112,13 @@ public class Enregistrerpatient extends javax.swing.JFrame {
             }
         });
 
+        back.setText("Retourner au menu");
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -118,7 +128,8 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(148, 148, 148))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(back)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ajouterpatient))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -144,7 +155,7 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                     .addComponent(cmbConnaissance, 0, 1, Short.MAX_VALUE)
                     .addComponent(txtProfession_anterieur)
                     .addComponent(cmbClassification, 0, 147, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,8 +186,10 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                     .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbSexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(ajouterpatient)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ajouterpatient)
+                    .addComponent(back))
                 .addContainerGap())
         );
 
@@ -227,6 +240,12 @@ public class Enregistrerpatient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProfession_anterieurActionPerformed
 
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        Mainmenu back = new Mainmenu ();
+        back.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_backActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -265,6 +284,7 @@ public class Enregistrerpatient extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ajouterpatient;
+    private javax.swing.JButton back;
     private javax.swing.JComboBox<String> cmbClassification;
     private javax.swing.JComboBox<String> cmbConnaissance;
     private javax.swing.JComboBox<String> cmbSexe;

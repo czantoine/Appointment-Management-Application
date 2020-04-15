@@ -91,7 +91,7 @@ public class Mainmenu extends javax.swing.JFrame {
     private void nouveaupatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nouveaupatientActionPerformed
        Enregistrerpatient egtpatient = new Enregistrerpatient();
        egtpatient.setVisible(true);
-       setVisble(false);
+       setVisible(false);
     }//GEN-LAST:event_nouveaupatientActionPerformed
 
     /**
