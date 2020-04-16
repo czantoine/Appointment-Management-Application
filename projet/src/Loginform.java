@@ -160,7 +160,7 @@ public class Loginform extends javax.swing.JFrame {
                 setVisible(false);
             }
             else {
-                JOptionPane.showMessageDialog(null,"nop");
+                JOptionPane.showMessageDialog(null,"Identifiant incorrect ou mot de passe incoret");
                 email.setText("");
                 mdp.setText("");
             }

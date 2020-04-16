@@ -57,6 +57,14 @@ public class Enregistrerpatient extends javax.swing.JFrame {
         txtProfession_actuelle = new javax.swing.JTextField();
         txtProfession_anterieur = new javax.swing.JTextField();
         back = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        txtMotdepasse = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        btxtNom = new javax.swing.JLabel();
+        btxtPrenom = new javax.swing.JLabel();
+        btxtEmail = new javax.swing.JLabel();
+        btxtMotdepasse = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -119,6 +127,24 @@ public class Enregistrerpatient extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Email : ");
+
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Mot de passe :");
+
+        btxtNom.setText("*");
+
+        btxtPrenom.setText("*");
+
+        btxtEmail.setText("*");
+
+        btxtMotdepasse.setText("*");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -127,35 +153,53 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(148, 148, 148))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(back)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ajouterpatient))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNd_Prenom)
-                    .addComponent(txtPrenom)
-                    .addComponent(txtNom)
-                    .addComponent(cmbSexe, 0, 113, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtProfession_actuelle)
-                    .addComponent(cmbConnaissance, 0, 1, Short.MAX_VALUE)
-                    .addComponent(txtProfession_anterieur)
-                    .addComponent(cmbClassification, 0, 147, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(back)
+                        .addGap(297, 297, 297)
+                        .addComponent(ajouterpatient))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNd_Prenom)
+                                    .addComponent(txtPrenom)
+                                    .addComponent(cmbSexe, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtEmail)
+                                    .addComponent(txtNom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel11)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btxtEmail)
+                                    .addComponent(btxtPrenom)
+                                    .addComponent(btxtNom))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtProfession_actuelle)
+                            .addComponent(cmbConnaissance, 0, 1, Short.MAX_VALUE)
+                            .addComponent(txtProfession_anterieur)
+                            .addComponent(cmbClassification, 0, 147, Short.MAX_VALUE)
+                            .addComponent(txtMotdepasse)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(btxtMotdepasse)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,13 +212,17 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                     .addComponent(txtNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(cmbConnaissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(1, 1, 1)
+                .addComponent(btxtNom)
+                .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(txtProfession_actuelle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(2, 2, 2)
+                .addComponent(btxtPrenom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtNd_Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,11 +234,21 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                     .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbSexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ajouterpatient)
-                    .addComponent(back))
-                .addContainerGap())
+                    .addComponent(jLabel10)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMotdepasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btxtEmail)
+                    .addComponent(btxtMotdepasse))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(back)
+                    .addComponent(ajouterpatient))
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,8 +274,27 @@ public class Enregistrerpatient extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrenomActionPerformed
 
     private void ajouterpatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajouterpatientActionPerformed
+        if(txtNom.getText().trim().isEmpty() && txtPrenom.getText().trim().isEmpty() && txtEmail.getText().trim().isEmpty()&& txtMotdepasse.getText().trim().isEmpty()){
+                btxtNom.setText("Champ requis");
+                btxtPrenom.setText("Champ requis");
+                btxtEmail.setText("Champ requis");
+                btxtMotdepasse.setText("Champ requis");
+        }                  
+        else if (txtNom.getText().trim().isEmpty()){
+            btxtNom.setText("Champ requis");
+        }
+        else if (txtPrenom.getText().trim().isEmpty()){
+            btxtPrenom.setText("Champ requis");
+        }
+        else if (txtEmail.getText().trim().isEmpty()){
+            btxtEmail.setText("Champ requis");
+        }
+        else if (txtMotdepasse.getText().trim().isEmpty()){
+            btxtMotdepasse.setText("Champ requis");
+        }
+        else {           
         try{
-            String query = "INSERT INTO `patient`(`Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`) VALUES (?,?,?,?,?,?,?,?) ";
+            String query = "INSERT INTO `patient`(`Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`,`Email`,`Password`) VALUES (?,?,?,?,?,?,?,?,?,?) ";
             con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
             pst = con.prepareStatement(query);
             pst.setString(1, txtNom.getText());
@@ -228,11 +305,14 @@ public class Enregistrerpatient extends javax.swing.JFrame {
             pst.setString(6, txtProfession_actuelle.getText());
             pst.setString(7, txtProfession_anterieur.getText());
             pst.setString(8, cmbClassification.getSelectedItem().toString());
+            pst.setString(9, txtEmail.getText());
+            pst.setString(10, txtMotdepasse.getText());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null,"Patient ajouté");
                             
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex);
+        }
         }
     }//GEN-LAST:event_ajouterpatientActionPerformed
 
@@ -245,6 +325,10 @@ public class Enregistrerpatient extends javax.swing.JFrame {
         back.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_backActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,10 +369,16 @@ public class Enregistrerpatient extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ajouterpatient;
     private javax.swing.JButton back;
+    private javax.swing.JLabel btxtEmail;
+    private javax.swing.JLabel btxtMotdepasse;
+    private javax.swing.JLabel btxtNom;
+    private javax.swing.JLabel btxtPrenom;
     private javax.swing.JComboBox<String> cmbClassification;
     private javax.swing.JComboBox<String> cmbConnaissance;
     private javax.swing.JComboBox<String> cmbSexe;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -298,6 +388,8 @@ public class Enregistrerpatient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtMotdepasse;
     private javax.swing.JTextField txtNd_Prenom;
     private javax.swing.JTextField txtNom;
     private javax.swing.JTextField txtPrenom;
