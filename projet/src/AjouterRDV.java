@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import java.sql.Date;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -71,6 +72,8 @@ public class AjouterRDV extends javax.swing.JFrame {
         jLabel2.setText("id du patient :");
 
         jLabel3.setText("Date :");
+
+        txtdate.setDateFormatString("yyyy-MM-dd");
 
         jLabel4.setText("Heure :");
 
@@ -199,6 +202,10 @@ public class AjouterRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_txtheureActionPerformed
 
     private void jrdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrdvActionPerformed
+        Date actuelle = new Date();
+        DateFormat dateformat = new SympleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(actuelle);
+        String dc= date;
         try{
             String query = "INSERT INTO `rdv`(`Date`,`heure`, `Prix`, `Reglement`, `id_patient`) VALUES (?,?,?,?) ";
             con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
