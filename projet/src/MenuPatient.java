@@ -44,14 +44,12 @@ public class MenuPatient extends javax.swing.JFrame {
         }    
         
         try{
-            
             Connection con = getConnection();
-            String query = "Select * From patient";
+            String query = "Select * From rdv";
             Statement statement = con.createStatement();
             ResultSet resultSet = statement.executeQuery(query); 
             while (resultSet.next()){
-                JReturnRDV.setText("Votre prochain rendez-vous est planifié au "+resultSet.getString(3)+" "+resultSet.getString(2));
-                
+                JReturnRDV.setText("Votre prochain rendez-vous est planifié au "+resultSet.getString(2)+" "+resultSet.getString(3));            
             }      
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
