@@ -204,7 +204,7 @@ public class AjouterRDV extends javax.swing.JFrame {
 
     private void jrdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrdvActionPerformed
      
-        SimpleDateFormat dateformat = SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         String rdate= dateformat.format(txtdate.getDate());
         
         try{
@@ -216,8 +216,8 @@ public class AjouterRDV extends javax.swing.JFrame {
             pst.setString(1, rdate);
             pst.setString(2, txtheure.getSelectedItem().toString());
             pst.setString(3, txtprix.getText());
-            pst.setString(5, txtreglement.getSelectedItem().toString()); 
-            pst.setString(6, txtidpatient.getText());
+            pst.setString(4, txtreglement.getSelectedItem().toString()); 
+            pst.setString(5, txtidpatient.getText());
           
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null,"Patient ajouté");
