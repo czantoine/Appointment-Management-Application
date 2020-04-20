@@ -5,8 +5,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -202,15 +203,17 @@ public class AjouterRDV extends javax.swing.JFrame {
     }//GEN-LAST:event_txtheureActionPerformed
 
     private void jrdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrdvActionPerformed
-        Date actuelle = new Date();
-        DateFormat dateformat = new SympleDateFormat("yyyy-MM-dd");
-        String date = dateFormat.format(actuelle);
-        String dc= date;
+     
+        SimpleDateFormat dateformat = SimpleDateFormat("yyyy-MM-dd");
+        String rdate= dateformat.format(txtdate.getDate());
+        
         try{
-            String query = "INSERT INTO `rdv`(`Date`,`heure`, `Prix`, `Reglement`, `id_patient`) VALUES (?,?,?,?) ";
+            
+            PreparedStatement pst;
+            String query = "INSERT INTO `rdv`(`Date`,`heure`, `Prix`, `Reglement`, `id_patient`) VALUES (?,?,?,?,?) ";
             con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
             pst = con.prepareStatement(query);
-            pst.setString(1, ((JTextField) txtdate.getDateEditor().getUiComponent().getText()));
+            pst.setString(1, rdate);
             pst.setString(2, txtheure.getSelectedItem().toString());
             pst.setString(3, txtprix.getText());
             pst.setString(5, txtreglement.getSelectedItem().toString()); 
@@ -280,4 +283,9 @@ public class AjouterRDV extends javax.swing.JFrame {
     private javax.swing.JTextField txtprix;
     private javax.swing.JComboBox<String> txtreglement;
     // End of variables declaration//GEN-END:variables
+
+   
+
+    
+    
 }
