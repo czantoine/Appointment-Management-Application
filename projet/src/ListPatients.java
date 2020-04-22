@@ -293,7 +293,7 @@ public class ListPatients extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void TableSearchPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableSearchPatientMouseClicked
-        Deplace(); 
+        
     }//GEN-LAST:event_TableSearchPatientMouseClicked
 
     /**

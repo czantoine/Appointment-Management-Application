@@ -83,6 +83,11 @@ public class Loginform extends javax.swing.JFrame {
         });
 
         choicebox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Patient", "Spy", "Admin" }));
+        choicebox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choiceboxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -159,7 +164,7 @@ public class Loginform extends javax.swing.JFrame {
            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
         
            if (choicebox.getSelectedIndex() == 0){
-                String sql = "Select * from patient where prenom=? and password=?" ;
+                String sql = "Select * from patient where prenon=? and password=?" ;
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, email.getText());
                 pst.setString(2, mdp.getText());
@@ -218,6 +223,10 @@ public class Loginform extends javax.swing.JFrame {
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitActionPerformed
+
+    private void choiceboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceboxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_choiceboxActionPerformed
 
     /**
      * @param args the command line arguments

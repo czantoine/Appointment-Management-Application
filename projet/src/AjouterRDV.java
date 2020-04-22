@@ -220,7 +220,7 @@ public class AjouterRDV extends javax.swing.JFrame {
             pst.setString(5, txtidpatient.getText());
                    
             pst.executeUpdate();
-            JOptionPane.showMessageDialog(null,"Patient ajouté");
+            JOptionPane.showMessageDialog(null,"RDV ajouté");
                             
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex);
