@@ -164,7 +164,7 @@ public class Loginform extends javax.swing.JFrame {
            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
         
            if (choicebox.getSelectedIndex() == 0){
-                String sql = "Select * from patient where prenon=? and password=?" ;
+                String sql = "Select * from patient where prenom=? and password=?" ;
                 PreparedStatement pst = con.prepareStatement(sql);
                 pst.setString(1, email.getText());
                 pst.setString(2, mdp.getText());
