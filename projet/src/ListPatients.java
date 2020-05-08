@@ -40,7 +40,7 @@ public class ListPatients extends javax.swing.JFrame {
         try{
             Connection con = getConnection();
             st = con.createStatement();
-            String searchQuery = "SELECT * FROM `patient` WHERE CONCAT (`id_patient`, `Nom`, `Prenom`,`Email`) LIKE '%"+ValToSearch+"%'";
+            String searchQuery = "SELECT * FROM `patient` WHERE CONCAT (`id_patient`, `Nom`, `Prenom`,`Email`,`Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`) LIKE '%"+ValToSearch+"%'";
             rs = st.executeQuery (searchQuery);
                     
             Patient patient;
@@ -50,7 +50,14 @@ public class ListPatients extends javax.swing.JFrame {
                                      rs.getInt("id_patient"),
                                      rs.getString("Nom"),
                                      rs.getString("Prenom"),
-                                     rs.getString("Email")
+                                     rs.getString("Email"),
+                                     rs.getString("Nd_Prenom"),
+                                     rs.getString("Sexe"),
+                                     rs.getString("Connaissance"),
+                                     rs.getString("Profession_actuelle"),
+                                     rs.getString("Profession_anterieur"),
+                                     rs.getString("Classification")
+                        
                                      );
                 patientList.add(patient);
             }
@@ -66,14 +73,21 @@ public class ListPatients extends javax.swing.JFrame {
         
         ArrayList<Patient> patient = ListPatient(txtsearch.getText());
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"id_patient","Nom","Prenom","Email"});
-        Object[] row = new Object [4];
+        model.setColumnIdentifiers(new Object[]{"id_patient","Nom","Prenom","Email","Nd_Prenom","Sexe","Connaissance","Profession_actielle","Profession_anterieur","Classification"});
+        Object[] row = new Object [10];
         
         for(int i = 0; i < patient.size(); i++){
             row[0] = patient.get(i).getId_patient();
-            row[1] = patient.get(i).getnom();
-            row[2] = patient.get(i).getprenom();
-            row[3] = patient.get(i).getemail();
+            row[1] = patient.get(i).getNom();
+            row[2] = patient.get(i).getPrenom();
+            row[3] = patient.get(i).getEmail();
+            row[4] = patient.get(i).getNd_prenom();
+            row[5] = patient.get(i).getSexe();
+            row[6] = patient.get(i).getConnaissance();
+            row[7] = patient.get(i).getProfession_actuelle();
+            row[8] = patient.get(i).getProfession_anterieur();
+            row[9] = patient.get(i).getClassification();
+ 
             model.addRow(row);
         }
         TableSearchPatient.setModel(model);
