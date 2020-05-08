@@ -123,6 +123,12 @@ public class ListPatients extends javax.swing.JFrame {
             }
         });
 
+        txtsearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtsearchActionPerformed(evt);
+            }
+        });
+
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         jLabel1.setText("Liste des patitents");
 
@@ -295,6 +301,10 @@ public class ListPatients extends javax.swing.JFrame {
     private void TableSearchPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableSearchPatientMouseClicked
         
     }//GEN-LAST:event_TableSearchPatientMouseClicked
+
+    private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtsearchActionPerformed
 
     /**
      * @param args the command line arguments

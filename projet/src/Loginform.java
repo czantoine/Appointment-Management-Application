@@ -117,7 +117,7 @@ public class Loginform extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(jButton1))
                             .addComponent(choicebox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(127, 245, Short.MAX_VALUE))
+                .addGap(218, 245, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
