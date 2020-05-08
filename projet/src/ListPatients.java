@@ -8,7 +8,9 @@ import javax.swing.table.DefaultTableModel;
 
 
 
-public class ListPatients extends javax.swing.JFrame {   
+public class ListPatients extends javax.swing.JFrame {  
+    static String test;
+     
 
     public ListPatients() {
         initComponents();
@@ -57,10 +59,10 @@ public class ListPatients extends javax.swing.JFrame {
                                      rs.getString("Profession_actuelle"),
                                      rs.getString("Profession_anterieur"),
                                      rs.getString("Classification")
-                        
                                      );
                 patientList.add(patient);
             }
+
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -73,7 +75,7 @@ public class ListPatients extends javax.swing.JFrame {
         
         ArrayList<Patient> patient = ListPatient(txtsearch.getText());
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"id_patient","Nom","Prenom","Email","Nd_Prenom","Sexe","Connaissance","Profession_actielle","Profession_anterieur","Classification"});
+        model.setColumnIdentifiers(new Object[]{"id_patient","Nom","Prenom","Email"});
         Object[] row = new Object [10];
         
         for(int i = 0; i < patient.size(); i++){
@@ -87,13 +89,55 @@ public class ListPatients extends javax.swing.JFrame {
             row[7] = patient.get(i).getProfession_actuelle();
             row[8] = patient.get(i).getProfession_anterieur();
             row[9] = patient.get(i).getClassification();
- 
             model.addRow(row);
         }
         TableSearchPatient.setModel(model);
+        
+        
     }
     
-    
+    public void Deplace(){
+        
+  
+        ResultSet rs;
+        
+        try{
+            Connection con = getConnection();
+            int row = TableSearchPatient.getSelectedRow();
+            this.test =(TableSearchPatient.getModel().getValueAt(row,0).toString());
+            String requet = "SELECT * FROM patient where id_patient = '"+test+"' ";
+            PreparedStatement st = con.prepareStatement(requet);
+            st = con.prepareStatement(requet);
+            
+            rs = st.executeQuery();
+            
+            if(rs.next()){
+                String t1 = rs.getString("nd_prenom");
+                txtndprenom.setText(t1);
+                
+                String t2 = rs.getString("sexe");
+                txtsexe.setText(t2);
+                
+                String t3 = rs.getString("Connaissance");
+                txtconnaissance.setText(t3);
+                
+                String t4 = rs.getString("profession_actuelle");
+                txtact.setText(t4);
+                
+                String t5 = rs.getString("profession_anterieur");
+                txtant.setText(t5);
+                
+                String t6 = rs.getString("classification");
+                txtclassification.setText(t6);
+            }
+               
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+            
+        
+    }
        
     
     /** 
@@ -313,7 +357,7 @@ public class ListPatients extends javax.swing.JFrame {
     }//GEN-LAST:event_backActionPerformed
 
     private void TableSearchPatientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableSearchPatientMouseClicked
-        
+        Deplace();
     }//GEN-LAST:event_TableSearchPatientMouseClicked
 
     private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
