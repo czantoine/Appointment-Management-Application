@@ -65,6 +65,7 @@ public class Enregistrerpatient extends javax.swing.JFrame {
         btxtPrenom = new javax.swing.JLabel();
         btxtEmail = new javax.swing.JLabel();
         btxtMotdepasse = new javax.swing.JLabel();
+        Reset = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -145,6 +146,13 @@ public class Enregistrerpatient extends javax.swing.JFrame {
 
         btxtMotdepasse.setText("*");
 
+        Reset.setText("Nettoyer");
+        Reset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -170,6 +178,12 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btxtEmail)
+                                    .addComponent(btxtPrenom)
+                                    .addComponent(btxtNom)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNd_Prenom)
                                     .addComponent(txtPrenom)
@@ -177,18 +191,14 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                                     .addComponent(txtEmail)
                                     .addComponent(txtNom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel11)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btxtEmail)
-                                    .addComponent(btxtPrenom)
-                                    .addComponent(btxtNom))))
+                                    .addComponent(Reset)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel7)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel11)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtProfession_actuelle)
@@ -247,7 +257,8 @@ public class Enregistrerpatient extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(back)
-                    .addComponent(ajouterpatient))
+                    .addComponent(ajouterpatient)
+                    .addComponent(Reset))
                 .addGap(26, 26, 26))
         );
 
@@ -330,6 +341,16 @@ public class Enregistrerpatient extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
 
+    private void ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetActionPerformed
+        txtNom.setText("");
+        txtPrenom.setText("");
+        txtNd_Prenom.setText("");      
+        txtProfession_actuelle.setText("");        
+        txtProfession_anterieur.setText("");    
+        txtEmail.setText("");        
+        txtMotdepasse.setText("");
+    }//GEN-LAST:event_ResetActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -367,6 +388,7 @@ public class Enregistrerpatient extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Reset;
     private javax.swing.JButton ajouterpatient;
     private javax.swing.JButton back;
     private javax.swing.JLabel btxtEmail;
