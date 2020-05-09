@@ -13,9 +13,7 @@ import javax.swing.table.TableModel;
 
 public class ModifPatient extends javax.swing.JFrame {
     PreparedStatement pst = null;
-    /**
-     * Creates new form ModifPatient
-     */
+   
     public ModifPatient() {
         initComponents();
         Toolkit toolkit = getToolkit();
@@ -120,11 +118,11 @@ public class ModifPatient extends javax.swing.JFrame {
         btxtEmail = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         modiftable = new javax.swing.JTable();
-        save = new javax.swing.JButton();
         txtNom = new javax.swing.JLabel();
         txtPrenom = new javax.swing.JLabel();
         cmbSexe = new javax.swing.JLabel();
         txtMotdepasse = new javax.swing.JLabel();
+        update = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -186,20 +184,18 @@ public class ModifPatient extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(modiftable);
 
-        save.setText("Sauvegarder");
-        save.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveActionPerformed(evt);
-            }
-        });
-
         txtNom.setText("jLabel2");
 
         txtPrenom.setText("jLabel2");
 
         cmbSexe.setText("jLabel2");
 
-        txtMotdepasse.setText("jLabel2");
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,7 +210,9 @@ public class ModifPatient extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addComponent(jLabel10)
                                 .addComponent(jLabel4)
-                                .addComponent(jLabel6))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(update)
+                                    .addComponent(jLabel6)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel8)))
@@ -228,10 +226,7 @@ public class ModifPatient extends javax.swing.JFrame {
                             .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(149, 149, 149)
-                        .addComponent(btxtEmail))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(save)))
+                        .addComponent(btxtEmail)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(311, 311, 311)
@@ -294,9 +289,7 @@ public class ModifPatient extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(save))
+                                    .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -305,7 +298,9 @@ public class ModifPatient extends javax.swing.JFrame {
                                 .addComponent(txtPrenom)
                                 .addGap(15, 15, 15)
                                 .addComponent(cmbSexe)))
-                        .addGap(0, 27, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(update)
+                        .addGap(16, 16, 16))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -354,12 +349,13 @@ public class ModifPatient extends javax.swing.JFrame {
         txtMotdepasse.setText(model.getValueAt(i,10).toString());
     }//GEN-LAST:event_modiftableMouseClicked
 
-    private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-
-        try{
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+         try{
             Connection con = getConnection();
+            int row = modiftable.getSelectedRow();
+            String value = (modiftable.getModel().getValueAt(row,0).toString());
+            String query = "UPDATE `patient` SET `Nom`=?,`Prenom`=?,`Nd_Prenom`=?,`Sexe`=?,`Connaissance`=?,`Profession_actuelle`=?,`Profession_anterieur`=?,`Classification`=?,`email`=?,`password`=? where id_patient="+value;
             
-            String query = "INSERT INTO `patient`(`Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`,`email`,`password`) VALUES (?,?,?,?,?,?,?,?,?,?) ";
             PreparedStatement pst = con.prepareStatement(query);
             pst.setString(1, txtNom.getText());
             pst.setString(2, txtPrenom.getText());
@@ -371,13 +367,17 @@ public class ModifPatient extends javax.swing.JFrame {
             pst.setString(8, cmbClassification.getSelectedItem().toString());
             pst.setString(9, txtEmail.getText());
             pst.setString(10, txtMotdepasse.getText());
-      
+            
             pst.executeUpdate();
+            DefaultTableModel model = (DefaultTableModel)modiftable.getModel();
+            model.setRowCount(0);
+            show_user();
+            JOptionPane.showMessageDialog(null,"Patient modifié");
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
-    }//GEN-LAST:event_saveActionPerformed
+    }//GEN-LAST:event_updateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -430,7 +430,6 @@ public class ModifPatient extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable modiftable;
-    private javax.swing.JButton save;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JLabel txtMotdepasse;
     private javax.swing.JTextField txtNd_Prenom;
@@ -438,5 +437,6 @@ public class ModifPatient extends javax.swing.JFrame {
     private javax.swing.JLabel txtPrenom;
     private javax.swing.JTextField txtProfession_actuelle;
     private javax.swing.JTextField txtProfession_anterieur;
+    private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }
