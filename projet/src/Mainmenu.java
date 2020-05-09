@@ -85,6 +85,11 @@ public class Mainmenu extends javax.swing.JFrame {
         });
 
         modif.setText("Modifier un patient");
+        modif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -107,11 +112,11 @@ public class Mainmenu extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(exit))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(modif, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(225, 225, 225)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(modif, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -175,6 +180,12 @@ public class Mainmenu extends javax.swing.JFrame {
         lstrdv.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void modifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifActionPerformed
+        ModifPatient modf = new ModifPatient ();
+        modf.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_modifActionPerformed
 
     /**
      * @param args the command line arguments

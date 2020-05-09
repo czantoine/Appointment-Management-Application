@@ -6,16 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Antoine
- */
 public class Enregistrerpatient extends javax.swing.JFrame {
     Connection con = null;
     PreparedStatement pst = null;
