@@ -391,6 +391,8 @@ public class ModifPatient extends javax.swing.JFrame {
     }//GEN-LAST:event_updateActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        int opt = JOptionPane.showConfirmDialog(null, "Supprimer le patient, cette action est irréversible","Supprimé", JOptionPane.YES_NO_OPTION);
+        if(opt==0){
         try{
             Connection con = getConnection();
             int row = modiftable.getSelectedRow();
@@ -406,6 +408,7 @@ public class ModifPatient extends javax.swing.JFrame {
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
+        }
         }
     }//GEN-LAST:event_deleteActionPerformed
 
