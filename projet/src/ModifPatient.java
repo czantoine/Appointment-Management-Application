@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class ModifPatient extends javax.swing.JFrame {
 
@@ -72,6 +73,7 @@ public class ModifPatient extends javax.swing.JFrame {
     public void show_user(){
         ArrayList<Patient> list = ListPatient();
         DefaultTableModel model = (DefaultTableModel)modiftable.getModel();
+         model.setColumnIdentifiers(new Object[]{"id_patient","Nom","Prenom","Email","Nd_Prenom","Sexe","Connaissance","Profession_actuelle","Profession_anterieur","Classification"});
         Object[] row = new Object [10];
         
         for(int i = 0; i < list.size(); i++){
@@ -103,8 +105,6 @@ public class ModifPatient extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtNd_Prenom = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        cmbSexe = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         cmbClassification = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
@@ -116,10 +116,7 @@ public class ModifPatient extends javax.swing.JFrame {
         back = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        txtMotdepasse = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
         btxtEmail = new javax.swing.JLabel();
-        btxtMotdepasse = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         modiftable = new javax.swing.JTable();
 
@@ -129,10 +126,6 @@ public class ModifPatient extends javax.swing.JFrame {
         jLabel1.setText("Modifier un patient");
 
         jLabel4.setText("Second Prénom :");
-
-        jLabel5.setText("Sexe :");
-
-        cmbSexe.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homme", "Femme", "Autre" }));
 
         jLabel6.setText("Classification :");
 
@@ -167,11 +160,7 @@ public class ModifPatient extends javax.swing.JFrame {
             }
         });
 
-        jLabel11.setText("Mot de passe :");
-
         btxtEmail.setText("*");
-
-        btxtMotdepasse.setText("*");
 
         modiftable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,6 +173,11 @@ public class ModifPatient extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        modiftable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modiftableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(modiftable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -196,10 +190,8 @@ public class ModifPatient extends javax.swing.JFrame {
                         .addComponent(jLabel9)
                         .addComponent(jLabel7)
                         .addComponent(jLabel10)
-                        .addComponent(jLabel5)
                         .addComponent(jLabel4)
-                        .addComponent(jLabel6)
-                        .addComponent(jLabel11))
+                        .addComponent(jLabel6))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel8)))
@@ -208,7 +200,6 @@ public class ModifPatient extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNd_Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbSexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbConnaissance, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtProfession_actuelle, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,15 +210,8 @@ public class ModifPatient extends javax.swing.JFrame {
                         .addGap(137, 137, 137))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(btxtMotdepasse))
-                                .addComponent(txtMotdepasse, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btxtEmail)
-                                .addGap(170, 170, 170)))
+                        .addComponent(btxtEmail)
+                        .addGap(170, 170, 170)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(141, 141, 141)
@@ -245,10 +229,7 @@ public class ModifPatient extends javax.swing.JFrame {
                     .addComponent(txtNd_Prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(cmbSexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -270,14 +251,9 @@ public class ModifPatient extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(txtMotdepasse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(3, 3, 3)
-                        .addComponent(btxtMotdepasse))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 18, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(back))))
@@ -313,6 +289,17 @@ public class ModifPatient extends javax.swing.JFrame {
     private void txtProfession_anterieurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProfession_anterieurActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProfession_anterieurActionPerformed
+
+    private void modiftableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modiftableMouseClicked
+        int i = modiftable.getSelectedRow();
+        TableModel model = modiftable.getModel();
+        txtNd_Prenom.setText(model.getValueAt(i,4).toString());
+        txtEmail.setText(model.getValueAt(i,3).toString());
+        cmbConnaissance.setSelectedItem((model.getValueAt(i,6).toString()));
+        txtProfession_actuelle.setText(model.getValueAt(i,7).toString());
+        txtProfession_anterieur.setText(model.getValueAt(i,8).toString());
+        cmbClassification.setSelectedItem((model.getValueAt(i,9).toString()));       
+    }//GEN-LAST:event_modiftableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -352,15 +339,11 @@ public class ModifPatient extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton back;
     private javax.swing.JLabel btxtEmail;
-    private javax.swing.JLabel btxtMotdepasse;
     private javax.swing.JComboBox<String> cmbClassification;
     private javax.swing.JComboBox<String> cmbConnaissance;
-    private javax.swing.JComboBox<String> cmbSexe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -369,7 +352,6 @@ public class ModifPatient extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable modiftable;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtMotdepasse;
     private javax.swing.JTextField txtNd_Prenom;
     private javax.swing.JTextField txtProfession_actuelle;
     private javax.swing.JTextField txtProfession_anterieur;
