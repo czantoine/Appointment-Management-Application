@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  lun. 27 avr. 2020 à 06:13
+-- Généré le :  sam. 09 mai 2020 à 13:15
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.8
 
@@ -39,12 +39,9 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`id_patient`, `Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`, `email`, `password`) VALUES
-(1, 'Teller ', 'Patrick', '', 'Homme', 'Autre', 'Mathématicien', 'BG', 'Couple', '', ''),
-(4, 'Billy', 'Elish ', '', 'Autre', 'Bouche à oreille', 'Singer', 'Dancer', 'Femme', 'bylli@email.com', 'aaa'),
-(5, 'Panieux', 'Quentin', '', 'Homme', 'Bouche à oreille', 'student', '', 'Homme', 'qqq@email.com', 'qqq'),
-(6, 'Hernandez', 'Patrick', '', 'Homme', 'Internet', 'Chanteur', '', 'Homme', 'dj@gmail.com', 'aaa'),
-(7, 'test', 'test', '', 'Femme', 'Docteur', '', '', 'Enfant', 'test@gmail.com', 'a'),
-(8, 'Ah', 'Billy', 'Robert', 'Homme', 'Docteur', 'efreiens', 'chauffeur', 'Ado', 'ahbilly@gmail.com', 'a');
+(4, 'Billy', 'Elish ', 'testyeee', 'Autre', 'Bouche à oreille', 'Singer', 'Dancer', 'Femme', 'bylli@email.com', ''),
+(8, 'Ah', 'Billy', 'Robert', 'Homme', 'Docteur', 'efreiens', 'chauffeur', 'Ado', 'ahbilly@gmail.com', 'a'),
+(17, 'Billy', 'Elish ', 'test', 'Autre', 'Docteur', 'Singer', 'Dancer', 'Femme', 'bylli@email.com', '');
 
 -- --------------------------------------------------------
 
@@ -58,7 +55,7 @@ CREATE TABLE `rdv` (
   `Heure` varchar(10) NOT NULL,
   `Prix` int(3) NOT NULL,
   `Reglement` varchar(50) NOT NULL,
-  `id_patient` int(50) NOT NULL
+  `id_patient` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -66,12 +63,6 @@ CREATE TABLE `rdv` (
 --
 
 INSERT INTO `rdv` (`id_rdv`, `Date`, `Heure`, `Prix`, `Reglement`, `id_patient`) VALUES
-(1, '2020-04-04', '08:00', 12, 'Espèce', 0),
-(2, '2020-04-04', '08:00', 12, 'Cheque', 0),
-(3, '2020-04-04', '08:00', 1223, 'Carte Bleue', 0),
-(4, '2020-04-25', '09:00', 21, 'Cheque', 6),
-(5, '2023-04-15', '11:00', 222, 'Cheque', 7),
-(6, '2020-04-18', '09:00', 2, 'Cheque', 1),
 (7, '2021-04-21', '18:00', 20, 'Cheque', 8);
 
 -- --------------------------------------------------------
@@ -110,7 +101,9 @@ ALTER TABLE `patient`
 -- Index pour la table `rdv`
 --
 ALTER TABLE `rdv`
-  ADD PRIMARY KEY (`id_rdv`);
+  ADD PRIMARY KEY (`id_rdv`),
+  ADD KEY `fk1` (`id_rdv`),
+  ADD KEY `fk_patient` (`id_patient`);
 
 --
 -- Index pour la table `spy`
@@ -126,7 +119,7 @@ ALTER TABLE `spy`
 -- AUTO_INCREMENT pour la table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `rdv`
@@ -139,3 +132,13 @@ ALTER TABLE `rdv`
 --
 ALTER TABLE `spy`
   MODIFY `id_psy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `rdv`
+--
+ALTER TABLE `rdv`
+  ADD CONSTRAINT `fk_patient` FOREIGN KEY (`id_patient`) REFERENCES `patient` (`id_patient`) ON DELETE CASCADE;
