@@ -167,7 +167,6 @@ public class ListPatients extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtsexe = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        sup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -287,21 +286,12 @@ public class ListPatients extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        sup.setText("Supprimer");
-        sup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                supActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(back)
-                .addGap(18, 18, 18)
-                .addComponent(sup)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -334,9 +324,7 @@ public class ListPatients extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(back)
-                    .addComponent(sup))
+                .addComponent(back)
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -372,26 +360,6 @@ public class ListPatients extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsearchActionPerformed
 
-    private void supActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supActionPerformed
-        ResultSet rs;
-        
-        try{
-                        
-            Connection con = getConnection();
-            int row = TableSearchPatient.getSelectedRow();
-            String value=(TableSearchPatient.getModel().getValueAt(row, 0).toString());
-            String sql = "delete from patient where id_patient "+value;
-            PreparedStatement st = con.prepareStatement(sql);
-            st.executeUpdate();
-            DefaultTableModel model = (DefaultTableModel)TableSearchPatient.getModel();
-            model.setRowCount(0);  
-            JOptionPane.showMessageDialog(null,"Supprimé");
-          
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
-        }
-    }//GEN-LAST:event_supActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -426,7 +394,6 @@ public class ListPatients extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton search;
-    private javax.swing.JButton sup;
     private javax.swing.JLabel txtact;
     private javax.swing.JLabel txtant;
     private javax.swing.JLabel txtclassification;
