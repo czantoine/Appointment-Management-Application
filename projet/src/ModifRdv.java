@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -285,18 +286,23 @@ public class ModifRdv extends javax.swing.JFrame {
     }//GEN-LAST:event_txtprixActionPerformed
 
     private void modiftableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modiftableMouseClicked
-      
+      try{ 
         
         int i = modiftable.getSelectedRow();
         TableModel model = modiftable.getModel();
+        
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(i, 1).toString());  
      
         
         txtidrdv.setText(model.getValueAt(i,0).toString());
-        txtdate.setDate(model.getValueAt(i,1).toString());
+        txtdate.setDate(date);
         txtheure.setSelectedItem(model.getValueAt(i,2  ).toString());
         txtprix.setText(model.getValueAt(i,3).toString());
         txtreglement.setSelectedItem(model.getValueAt(i,4).toString());
         txtidp.setText(model.getValueAt(i,5).toString());
+      }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
         
     }//GEN-LAST:event_modiftableMouseClicked
 
