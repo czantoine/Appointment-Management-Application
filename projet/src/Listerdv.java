@@ -2,7 +2,6 @@
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -23,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Antoine
  */
 public class Listerdv extends javax.swing.JFrame {
-
+static String test;
        Connection conn = null;
     Statement st = null;
     ResultSet rs = null;
@@ -48,7 +47,7 @@ public class Listerdv extends javax.swing.JFrame {
         try{
  
             st = conn.createStatement();
-            String searchQuery = "SELECT * FROM `rdv` WHERE CONCAT (`id_rdv`, `Date`, `Heure`,`Prix`, `Reglement`, `id_patient`) LIKE '%"+ValToSearch+"%'";
+            String searchQuery = "SELECT * FROM `rdv` WHERE CONCAT (`id_rdv`, `Date`, `Heure`,`Prix`, `Reglement`,`Anxiete`,`Mots_clef`,`Postures`,`Comportement`, `id_patient`) LIKE '%"+ValToSearch+"%'";
             rs = st.executeQuery (searchQuery);
                     
             Rdv rdv;
@@ -60,6 +59,10 @@ public class Listerdv extends javax.swing.JFrame {
                                      rs.getString("Heure"),
                                      rs.getInt("Prix"),
                                      rs.getString("Reglement"),
+                                     rs.getInt("Anxiete"),
+                                     rs.getString("Mots_clef"),
+                                     rs.getString("Postures"),
+                                     rs.getString("Comportement"),
                                      rs.getInt("id_patient")
                                      );
                 rdvList.add(rdv);
@@ -76,8 +79,8 @@ public class Listerdv extends javax.swing.JFrame {
         
         ArrayList<Rdv> rdv = ListRdv(txtsearch.getText());
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"id_rdv","Date","Heure","Prix","Reglement","id_patient"});
-        Object[] row = new Object [6];
+        model.setColumnIdentifiers(new Object[]{"id_rdv","Date","Heure","Prix","Reglement","Anxiete","Mots_clef","Postures","Comportement","id_patient"});
+        Object[] row = new Object [9];
         
         for(int i = 0; i < rdv.size(); i++){
             row[0] = rdv.get(i).getId_rdv();
@@ -85,10 +88,51 @@ public class Listerdv extends javax.swing.JFrame {
             row[2] = rdv.get(i).getHeure();
             row[3] = rdv.get(i).getPrix();
             row[4] = rdv.get(i).getReglement();
-            row[5] = rdv.get(i).getId_patient();
+            row[5] = rdv.get(i).getAnxiete();
+            row[6] = rdv.get(i).getMots_clef();
+            row[7] = rdv.get(i).getPostures();
+            row[8] = rdv.get(i).getComportement();
+            row[9] = rdv.get(i).getId_patient();            
+            
             model.addRow(row);
         }
         TableSearchRdv.setModel(model);
+    }
+    
+    public void Deplace(){
+   
+            conn = SQLConnection.connectDB();
+        try{
+   
+            int row = TableSearchRdv.getSelectedRow();
+            this.test =(TableSearchRdv.getModel().getValueAt(row,0).toString());
+            String requet = "SELECT * FROM rdv where id_rdv = '"+test+"' ";
+            PreparedStatement st = conn.prepareStatement(requet);
+            st = conn.prepareStatement(requet);
+            
+            rs = st.executeQuery();
+            
+            if(rs.next()){
+                String t1 = rs.getString("anxiete");
+                txtAnxiete.setText(t1);
+                
+                String t2 = rs.getString("mots_clef");
+                txtMots_clef.setText(t2);
+                
+                String t3 = rs.getString("Postures");
+                txtPostures.setText(t3);
+                
+                String t4 = rs.getString("Comportement");
+                txtComportement.setText(t4);
+ 
+            }
+               
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+            
+        
     }
 
     /**
@@ -107,6 +151,10 @@ public class Listerdv extends javax.swing.JFrame {
         txtsearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableSearchRdv = new javax.swing.JTable();
+        txtAnxiete = new javax.swing.JLabel();
+        txtMots_clef = new javax.swing.JLabel();
+        txtPostures = new javax.swing.JLabel();
+        txtComportement = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,6 +194,14 @@ public class Listerdv extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(TableSearchRdv);
 
+        txtAnxiete.setText("jLabel2");
+
+        txtMots_clef.setText("jLabel3");
+
+        txtPostures.setText("jLabel4");
+
+        txtComportement.setText("jLabel5");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -154,15 +210,22 @@ public class Listerdv extends javax.swing.JFrame {
                 .addComponent(search)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(21, 21, 21))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(151, 151, 151)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAnxiete)
+                            .addComponent(txtMots_clef)
+                            .addComponent(txtPostures)
+                            .addComponent(txtComportement))))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,7 +240,16 @@ public class Listerdv extends javax.swing.JFrame {
                             .addComponent(search)
                             .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtAnxiete)
+                        .addGap(31, 31, 31)
+                        .addComponent(txtMots_clef)
+                        .addGap(29, 29, 29)
+                        .addComponent(txtPostures)
+                        .addGap(27, 27, 27)
+                        .addComponent(txtComportement)))
                 .addGap(35, 35, 35)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -253,6 +325,10 @@ public class Listerdv extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton search;
+    private javax.swing.JLabel txtAnxiete;
+    private javax.swing.JLabel txtComportement;
+    private javax.swing.JLabel txtMots_clef;
+    private javax.swing.JLabel txtPostures;
     private javax.swing.JTextField txtsearch;
     // End of variables declaration//GEN-END:variables
 }

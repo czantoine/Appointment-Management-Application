@@ -59,6 +59,10 @@ public class Consultation extends javax.swing.JFrame {
                                      rs.getString("Heure"),
                                      rs.getInt("Prix"),
                                      rs.getString("Reglement"),
+                                     rs.getInt("Anxiete"),
+                                     rs.getString("Mots_clef"),
+                                     rs.getString("Postures"),
+                                     rs.getString("Comportement"),
                                      rs.getInt("id_patient")
                                      );
                 rdvList.add(rdv);

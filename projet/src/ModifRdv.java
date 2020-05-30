@@ -52,13 +52,17 @@ public class ModifRdv extends javax.swing.JFrame {
                     
             Rdv rdv;
             
-            while (rs.next()){
+             while (rs.next()){
                 rdv = new Rdv(
                                      rs.getInt("id_rdv"),
                                      rs.getDate("Date"),
                                      rs.getString("Heure"),
                                      rs.getInt("Prix"),
                                      rs.getString("Reglement"),
+                                     rs.getInt("Anxiete"),
+                                     rs.getString("Mots_clef"),
+                                     rs.getString("Postures"),
+                                     rs.getString("Comportement"),
                                      rs.getInt("id_patient")
                                      );
                 rdvList.add(rdv);

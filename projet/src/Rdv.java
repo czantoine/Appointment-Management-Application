@@ -14,16 +14,27 @@ public class Rdv {
     private String heure;
     private int prix;
     private String reglement;
+    private int anxiete;
+    private String mots_clef;
+    private String postures;
+    private String comportement;
     private int id_patient;
     
+    public Rdv(int id_rdv, Date date, String heure, int prix, String reglement, int anxiete, String mots_clef, String postures, String comportement, int id_patient) {
+        this.id_rdv = id_rdv;
+        this.date = date;
+        this.heure = heure;
+        this.prix = prix;
+        this.reglement = reglement;
+        this.anxiete = anxiete;
+        this.mots_clef = mots_clef;
+        this.postures = postures;
+        this.comportement = comportement;
+        this.id_patient = id_patient;
+    }
 
-    public Rdv(int id_Rdv, Date Date, String Heure, int Prix, String Reglement, int id_Patient) {
-        this.id_rdv = id_Rdv;
-        this.date = Date;
-        this.heure = Heure;
-        this.prix = Prix;
-        this.reglement = Reglement;
-        this.id_patient = id_Patient;
+    public SimpleDateFormat getDateformat() {
+        return dateformat;
     }
 
     public int getId_rdv() {
@@ -45,10 +56,25 @@ public class Rdv {
     public String getReglement() {
         return reglement;
     }
-    
-    public int getId_patient(){
+
+    public int getAnxiete() {
+        return anxiete;
+    }
+
+    public String getMots_clef() {
+        return mots_clef;
+    }
+
+    public String getPostures() {
+        return postures;
+    }
+
+    public String getComportement() {
+        return comportement;
+    }
+
+    public int getId_patient() {
         return id_patient;
     }
-   
     
 }
