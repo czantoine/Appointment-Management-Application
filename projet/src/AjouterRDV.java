@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AjouterRDV extends javax.swing.JFrame {  
      Connection conn = null;
@@ -227,28 +229,79 @@ public class AjouterRDV extends javax.swing.JFrame {
 
     private void jrdvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrdvActionPerformed
      
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-        String rdate= dateformat.format(txtdate.getDate());
         conn = SQLConnection.connectDB();
+        PreparedStatement pst;
+        
+        
         try{
             
+            Date date = txtdate.getDate();
             
-            PreparedStatement pst;
-            String query = "INSERT INTO `rdv`(`Date`,`heure`, `Prix`, `Reglement`,`Anxiete`,`Mots_clef`,`Postures`,`Comportement`,`id_patient`) VALUES (?,?,?,?,?,?,?,?,?) ";
+            Calendar c = Calendar.getInstance();
+            c.setTime(date);
             
-            pst = conn.prepareStatement(query);
-            pst.setString(1, rdate);
-            pst.setString(2, txtheure.getSelectedItem().toString());
-            pst.setString(3, txtprix.getText());
-            pst.setString(4, txtreglement.getSelectedItem().toString());
-            pst.setString(5, an.getText());
-            pst.setString(6, mo.getText());
-            pst.setString(7, po.getText());
-            pst.setString(8, co.getText());
-            pst.setString(9, txtidpatient.getText());
+            int dayWeek = c.get(Calendar.DAY_OF_WEEK);
+            
+            if(dayWeek == 1) {
+                JOptionPane.showMessageDialog(null, "Le cabinet est fermé le dimanche", "Enregistrement refusé", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            else {
+                SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+                String rdate= dateformat.format(txtdate.getDate());
+                
+                ResultSet rslt = null;
+                PreparedStatement pst2 = conn.prepareStatement("SELECT COUNT('Heure') FROM rdv WHERE date = ?");
+                pst2.setString(1, rdate);
+                rslt = pst2.executeQuery();
+                
+                
+                int count = 0;
+                while (rslt.next()) {
+                    count = rslt.getInt(1);
+                }
+                
+                ResultSet rslt2 = null;
+                PreparedStatement pst3 = conn.prepareStatement("SELECT COUNT('Heure') FROM rdv WHERE heure = ? AND date = ?");
+                pst3.setString(1, txtheure.getSelectedItem().toString());
+                pst3.setString(2, rdate);
+                rslt2 = pst3.executeQuery();
+                
+                int count2 = 0;
+                while(rslt2.next()){
+                    count2 = rslt2.getInt(1);
+                }
+                
+                if (count >= 20) {
+                    JOptionPane.showMessageDialog(null, "Vous avez déjà atteint votre quota d'heure quotidien", "Enregistrement refusé", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                if (count2 >= 3) {
+                    JOptionPane.showMessageDialog(null, "Il y a déjà 3 patients à cette horaire", "Enregistrement refusé", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                else {
+                    
+                    String query = "INSERT INTO `rdv`(`Date`, `Heure`, `Prix`, `Reglement`,`Anxiete`,`Mots_clef`,`Postures`,`Comportement`,`id_patient`) VALUES (?,?,?,?,?,?,?,?,?) ";
+            
+                    pst = conn.prepareStatement(query);
+                    pst.setString(1, rdate);
+                    pst.setString(2, txtheure.getSelectedItem().toString());
+                    pst.setString(3, txtprix.getText());
+                    pst.setString(4, txtreglement.getSelectedItem().toString());
+                    pst.setString(5, an.getText());
+                    pst.setString(6, mo.getText());
+                    pst.setString(7, po.getText());
+                    pst.setString(8, co.getText());
+                    pst.setString(9, txtidpatient.getText());
+                    
                    
-            pst.executeUpdate();
-            JOptionPane.showMessageDialog(null,"RDV ajouté");
+                    pst.executeUpdate();
+                    JOptionPane.showMessageDialog(null,"RDV ajouté");
+                    
+                }
+            }
+            
                             
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex);
