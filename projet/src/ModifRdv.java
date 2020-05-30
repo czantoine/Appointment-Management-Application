@@ -126,6 +126,7 @@ public class ModifRdv extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        archi = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -195,11 +196,13 @@ public class ModifRdv extends javax.swing.JFrame {
 
         jLabel1.setText("Anxieté : ");
 
-        jLabel2.setText("Mots-clef");
+        jLabel2.setText("Mots-clef :");
 
-        jLabel3.setText("Postures");
+        jLabel3.setText("Postures :");
 
-        jLabel4.setText("Comportement");
+        jLabel4.setText("Comportement :");
+
+        archi.setText("Archiver");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -226,7 +229,9 @@ public class ModifRdv extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(delete)
-                        .addGap(216, 216, 216)
+                        .addGap(18, 18, 18)
+                        .addComponent(archi)
+                        .addGap(101, 101, 101)
                         .addComponent(jButton2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -298,7 +303,8 @@ public class ModifRdv extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(delete)
-                            .addComponent(update)))
+                            .addComponent(update)
+                            .addComponent(archi)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)))
@@ -450,6 +456,7 @@ public class ModifRdv extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> an;
+    private javax.swing.JButton archi;
     private javax.swing.JTextField co;
     private javax.swing.JButton delete;
     private javax.swing.JButton jButton1;
