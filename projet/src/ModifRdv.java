@@ -245,7 +245,25 @@ public class ModifRdv extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        // TODO add your handling code here:
+        int opt = JOptionPane.showConfirmDialog(null, "Supprimer le rdv, cette action est irréversible","Supprimé", JOptionPane.YES_NO_OPTION);
+        if(opt==0){
+        try{
+
+            int row = modiftable.getSelectedRow();
+            String value = (modiftable.getModel().getValueAt(row,0).toString());
+            String query = "DELETE FROM rdv WHERE id_rdv="+value;
+        
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.executeUpdate();
+            DefaultTableModel model = (DefaultTableModel)modiftable.getModel();
+            model.setRowCount(0);
+            show_user();
+            JOptionPane.showMessageDialog(null,"Rdv supprimé");
+        
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        }
     }//GEN-LAST:event_deleteActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -257,7 +275,7 @@ public class ModifRdv extends javax.swing.JFrame {
 
             int row = modiftable.getSelectedRow();
             String value = (modiftable.getModel().getValueAt(row,0).toString());
-            String query = "UPDATE `rdv` SET `id_rdv`=?,`date`=?,`heure`=?,`Prix`=?,`Reglement`=? where id_patient="+value;
+            String query = "UPDATE `rdv` SET `date`=?,`heure`=?,`Prix`=?,`Reglement`=? where id_rdv="+value;
 
             pst = conn.prepareStatement(query);
             pst.setString(1, rdate);
@@ -270,7 +288,7 @@ public class ModifRdv extends javax.swing.JFrame {
             DefaultTableModel model = (DefaultTableModel)modiftable.getModel();
             model.setRowCount(0);
             show_user();
-            JOptionPane.showMessageDialog(null,"Patient modifié");
+            JOptionPane.showMessageDialog(null,"Rdv modifié");
 
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
