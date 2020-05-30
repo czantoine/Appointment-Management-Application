@@ -367,7 +367,7 @@ public class ModifPatient extends javax.swing.JFrame {
             String value = (modiftable.getModel().getValueAt(row,0).toString());
             String query = "UPDATE `patient` SET `Nom`=?,`Prenom`=?,`Nd_Prenom`=?,`Sexe`=?,`Connaissance`=?,`Profession_actuelle`=?,`Profession_anterieur`=?,`Classification`=?,`email`=?,`password`=? where id_patient="+value;
             
-            PreparedStatement pst = conn.prepareStatement(query);
+            pst = conn.prepareStatement(query);
             pst.setString(1, txtNom.getText());
             pst.setString(2, txtPrenom.getText());
             pst.setString(3, txtNd_Prenom.getText()); 

@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -36,7 +37,7 @@ public class ModifRdv extends javax.swing.JFrame {
         show_user();
     }
 
-    public ArrayList<Rdv> ListRdv(String ValToSearch){
+    public ArrayList<Rdv> ListRdv(){
         ArrayList<Rdv> rdvList = new ArrayList<Rdv>();
         
 
@@ -45,7 +46,7 @@ public class ModifRdv extends javax.swing.JFrame {
         try{
  
             st = conn.createStatement();
-            String searchQuery = "SELECT * FROM `rdv` WHERE CONCAT (`id_rdv`, `Date`, `Heure`,`Prix`, `Reglement`, `id_patient`) LIKE '%"+ValToSearch+"%'";
+            String searchQuery = "SELECT * FROM `rdv`";
             rs = st.executeQuery (searchQuery);
                     
             Rdv rdv;
@@ -67,6 +68,25 @@ public class ModifRdv extends javax.swing.JFrame {
         }
         return rdvList;
     }
+    
+    public void show_user(){
+        ArrayList<Rdv> rdv = ListRdv();
+        DefaultTableModel model = (DefaultTableModel)modiftable.getModel();
+        model.setColumnIdentifiers(new Object[]{"id_rdv","Date","Heure","Prix","Reglement","id_patient"});
+        Object[] row = new Object [6];
+        
+        for(int i = 0; i < rdv.size(); i++){
+            row[0] = rdv.get(i).getId_rdv();
+            row[1] = rdv.get(i).getDate();
+            row[2] = rdv.get(i).getHeure();
+            row[3] = rdv.get(i).getPrix();
+            row[4] = rdv.get(i).getReglement();
+            row[5] = rdv.get(i).getId_patient();
+            model.addRow(row);
+        }
+ 
+    
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,6 +106,8 @@ public class ModifRdv extends javax.swing.JFrame {
         txtdate = new com.toedter.calendar.JDateChooser();
         txtprix = new javax.swing.JTextField();
         txtreglement = new javax.swing.JComboBox<>();
+        txtidrdv = new javax.swing.JLabel();
+        txtidp = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -116,6 +138,11 @@ public class ModifRdv extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        modiftable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modiftableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(modiftable);
 
         txtheure.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00", "19:30" }));
@@ -134,6 +161,10 @@ public class ModifRdv extends javax.swing.JFrame {
         });
 
         txtreglement.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Espèce", "Cheque", "Carte Bleue" }));
+
+        txtidrdv.setText("jLabel2");
+
+        txtidp.setText("jLabel2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,12 +188,16 @@ public class ModifRdv extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(txtreglement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(delete)
                         .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtidrdv)
+                            .addComponent(txtidp))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,8 +206,12 @@ public class ModifRdv extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtidrdv))
+                        .addGap(20, 20, 20)
+                        .addComponent(txtidp)
+                        .addGap(2, 2, 2)
                         .addComponent(txtheure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(txtprix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,10 +259,10 @@ public class ModifRdv extends javax.swing.JFrame {
             String query = "UPDATE `rdv` SET `id_rdv`=?,`date`=?,`heure`=?,`Prix`=?,`Reglement`=? where id_patient="+value;
 
             pst = conn.prepareStatement(query);
-            pst.setString(1, rdate());
-            pst.setString(2, txtheure.getText());
+            pst.setString(1, rdate);
+            pst.setString(2, txtheure.getSelectedItem().toString());
             pst.setString(3, txtprix.getText());
-            pst.setString(4, txtreglement.getText());
+            pst.setString(4, txtreglement.getSelectedItem().toString());
 
 
             pst.executeUpdate();
@@ -244,6 +283,22 @@ public class ModifRdv extends javax.swing.JFrame {
     private void txtprixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtprixActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtprixActionPerformed
+
+    private void modiftableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modiftableMouseClicked
+      
+        
+        int i = modiftable.getSelectedRow();
+        TableModel model = modiftable.getModel();
+     
+        
+        txtidrdv.setText(model.getValueAt(i,0).toString());
+        txtdate.setDate(model.getValueAt(i,1).toString());
+        txtheure.setSelectedItem(model.getValueAt(i,2  ).toString());
+        txtprix.setText(model.getValueAt(i,3).toString());
+        txtreglement.setSelectedItem(model.getValueAt(i,4).toString());
+        txtidp.setText(model.getValueAt(i,5).toString());
+        
+    }//GEN-LAST:event_modiftableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -288,6 +343,8 @@ public class ModifRdv extends javax.swing.JFrame {
     private javax.swing.JTable modiftable;
     private com.toedter.calendar.JDateChooser txtdate;
     private javax.swing.JComboBox<String> txtheure;
+    private javax.swing.JLabel txtidp;
+    private javax.swing.JLabel txtidrdv;
     private javax.swing.JTextField txtprix;
     private javax.swing.JComboBox<String> txtreglement;
     private javax.swing.JButton update;
