@@ -76,7 +76,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="delete" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="archi" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                           <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -172,6 +174,7 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="delete" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="update" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="archi" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -339,17 +342,22 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Mots-clef"/>
+            <Property name="text" type="java.lang.String" value="Mots-clef :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Postures"/>
+            <Property name="text" type="java.lang.String" value="Postures :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Comportement"/>
+            <Property name="text" type="java.lang.String" value="Comportement :"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="archi">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Archiver"/>
           </Properties>
         </Component>
       </SubComponents>
