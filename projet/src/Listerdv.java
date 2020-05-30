@@ -22,11 +22,14 @@ import javax.swing.table.DefaultTableModel;
  * @author Antoine
  */
 public class Listerdv extends javax.swing.JFrame {
-static String test;
-       Connection conn = null;
+    static String test;
+    
+    Connection conn = null;
     Statement st = null;
     ResultSet rs = null;
     PreparedStatement pst = null;
+    
+    
     public Listerdv() {
         initComponents();
         Toolkit toolkit = getToolkit();
@@ -79,8 +82,8 @@ static String test;
         
         ArrayList<Rdv> rdv = ListRdv(txtsearch.getText());
         DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(new Object[]{"id_rdv","Date","Heure","Prix","Reglement","Anxiete","Mots_clef","Postures","Comportement","id_patient"});
-        Object[] row = new Object [9];
+        model.setColumnIdentifiers(new Object[]{"id_rdv","Date","Heure","Prix","Reglement","id_patient"});
+        Object[] row = new Object [10];
         
         for(int i = 0; i < rdv.size(); i++){
             row[0] = rdv.get(i).getId_rdv();
@@ -113,17 +116,19 @@ static String test;
             rs = st.executeQuery();
             
             if(rs.next()){
-                String t1 = rs.getString("anxiete");
-                txtAnxiete.setText(t1);
+                String t1 = rs.getString("Anxiete");
+                an.setText(t1);
                 
-                String t2 = rs.getString("mots_clef");
-                txtMots_clef.setText(t2);
+                String t2 = rs.getString("Mots_clef");
+                mo.setText(t2);
                 
                 String t3 = rs.getString("Postures");
-                txtPostures.setText(t3);
+                po.setText(t3);
                 
                 String t4 = rs.getString("Comportement");
-                txtComportement.setText(t4);
+                co.setText(t4);
+                
+               
  
             }
                
@@ -147,14 +152,15 @@ static String test;
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        search = new javax.swing.JButton();
+        findPatient = new javax.swing.JButton();
         txtsearch = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableSearchRdv = new javax.swing.JTable();
-        txtAnxiete = new javax.swing.JLabel();
-        txtMots_clef = new javax.swing.JLabel();
-        txtPostures = new javax.swing.JLabel();
-        txtComportement = new javax.swing.JLabel();
+        an = new javax.swing.JLabel();
+        mo = new javax.swing.JLabel();
+        po = new javax.swing.JLabel();
+        co = new javax.swing.JLabel();
+        txtndprenom = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,10 +174,10 @@ static String test;
             }
         });
 
-        search.setText("Rechercher");
-        search.addActionListener(new java.awt.event.ActionListener() {
+        findPatient.setText("Rechercher");
+        findPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
+                findPatientActionPerformed(evt);
             }
         });
 
@@ -192,22 +198,19 @@ static String test;
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TableSearchRdv.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableSearchRdvMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TableSearchRdv);
-
-        txtAnxiete.setText("jLabel2");
-
-        txtMots_clef.setText("jLabel3");
-
-        txtPostures.setText("jLabel4");
-
-        txtComportement.setText("jLabel5");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(search)
+                .addComponent(findPatient)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 350, Short.MAX_VALUE)
@@ -219,13 +222,18 @@ static String test;
                     .addComponent(jButton1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(151, 151, 151)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAnxiete)
-                            .addComponent(txtMots_clef)
-                            .addComponent(txtPostures)
-                            .addComponent(txtComportement))))
-                .addContainerGap(156, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(151, 151, 151)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(mo)
+                                    .addComponent(po)
+                                    .addComponent(co)
+                                    .addComponent(an, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(txtndprenom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,19 +245,21 @@ static String test;
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(search)
+                            .addComponent(findPatient)
                             .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtAnxiete)
-                        .addGap(31, 31, 31)
-                        .addComponent(txtMots_clef)
+                        .addComponent(an, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mo)
                         .addGap(29, 29, 29)
-                        .addComponent(txtPostures)
+                        .addComponent(po)
                         .addGap(27, 27, 27)
-                        .addComponent(txtComportement)))
+                        .addComponent(co)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtndprenom, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(35, 35, 35)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -279,9 +289,13 @@ static String test;
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsearchActionPerformed
 
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+    private void findPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPatientActionPerformed
         findRdv();
-    }//GEN-LAST:event_searchActionPerformed
+    }//GEN-LAST:event_findPatientActionPerformed
+
+    private void TableSearchRdvMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableSearchRdvMouseClicked
+Deplace();        // TODO add your handling code here:
+    }//GEN-LAST:event_TableSearchRdvMouseClicked
 
     /**
      * @param args the command line arguments
@@ -320,15 +334,16 @@ static String test;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TableSearchRdv;
+    private javax.swing.JLabel an;
+    private javax.swing.JLabel co;
+    private javax.swing.JButton findPatient;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton search;
-    private javax.swing.JLabel txtAnxiete;
-    private javax.swing.JLabel txtComportement;
-    private javax.swing.JLabel txtMots_clef;
-    private javax.swing.JLabel txtPostures;
+    private javax.swing.JLabel mo;
+    private javax.swing.JLabel po;
+    private javax.swing.JLabel txtndprenom;
     private javax.swing.JTextField txtsearch;
     // End of variables declaration//GEN-END:variables
 }
