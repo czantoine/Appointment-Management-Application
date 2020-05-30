@@ -59,7 +59,7 @@ public class ModifRdv extends javax.swing.JFrame {
                                      rs.getString("Heure"),
                                      rs.getInt("Prix"),
                                      rs.getString("Reglement"),
-                                     rs.getInt("Anxiete"),
+                                     rs.getString("Anxiete"),
                                      rs.getString("Mots_clef"),
                                      rs.getString("Postures"),
                                      rs.getString("Comportement"),
@@ -77,8 +77,8 @@ public class ModifRdv extends javax.swing.JFrame {
     public void show_user(){
         ArrayList<Rdv> rdv = ListRdv();
         DefaultTableModel model = (DefaultTableModel)modiftable.getModel();
-        model.setColumnIdentifiers(new Object[]{"id_rdv","Date","Heure","Prix","Reglement","id_patient"});
-        Object[] row = new Object [6];
+        model.setColumnIdentifiers(new Object[]{"id_rdv","Date","Heure","Prix","Reglement","Anxiete","Mots_clef","Postures","Comportememt","id_patient"});
+        Object[] row = new Object [10];
         
         for(int i = 0; i < rdv.size(); i++){
             row[0] = rdv.get(i).getId_rdv();
@@ -86,7 +86,11 @@ public class ModifRdv extends javax.swing.JFrame {
             row[2] = rdv.get(i).getHeure();
             row[3] = rdv.get(i).getPrix();
             row[4] = rdv.get(i).getReglement();
-            row[5] = rdv.get(i).getId_patient();
+            row[5] = rdv.get(i).getAnxiete();
+            row[6] = rdv.get(i).getMots_clef();
+            row[7] = rdv.get(i).getPostures();
+            row[8] = rdv.get(i).getComportement();
+            row[9] = rdv.get(i).getId_patient();      
             model.addRow(row);
         }
  
@@ -114,6 +118,10 @@ public class ModifRdv extends javax.swing.JFrame {
         txtidrdv = new javax.swing.JLabel();
         txtidp = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        mo = new javax.swing.JTextField();
+        po = new javax.swing.JTextField();
+        co = new javax.swing.JTextField();
+        an = new javax.swing.JComboBox<>();
 
         jButton1.setText("jButton1");
 
@@ -179,6 +187,8 @@ public class ModifRdv extends javax.swing.JFrame {
             }
         });
 
+        an.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -201,19 +211,25 @@ public class ModifRdv extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(txtreglement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtidrdv)
-                            .addComponent(txtidp))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(delete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addGap(33, 33, 33))))
+                        .addGap(216, 216, 216)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtidrdv, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtidp, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(68, 68, 68)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(mo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                .addComponent(po)
+                                .addComponent(co))
+                            .addComponent(an, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(102, 102, 102)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(272, 272, 272))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,26 +237,40 @@ public class ModifRdv extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtidrdv))
-                        .addGap(20, 20, 20)
-                        .addComponent(txtidp)
-                        .addGap(2, 2, 2)
+                        .addComponent(txtdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
                         .addComponent(txtheure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(txtprix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtreglement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtreglement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(co, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(txtidp))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(delete)
-                    .addComponent(update)
-                    .addComponent(jButton2))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtidrdv)
+                            .addComponent(an, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addComponent(mo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(po, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(delete)
+                            .addComponent(update)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,7 +278,7 @@ public class ModifRdv extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1085, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -290,14 +320,17 @@ public class ModifRdv extends javax.swing.JFrame {
 
             int row = modiftable.getSelectedRow();
             String value = (modiftable.getModel().getValueAt(row,0).toString());
-            String query = "UPDATE `rdv` SET `date`=?,`heure`=?,`Prix`=?,`Reglement`=? where id_rdv="+value;
-
+            String query = "UPDATE `rdv` SET `date`=?,`heure`=?,`Prix`=?,`Reglement`=?, `Anxiete`=?,`Mots_clef`=?, `Postures`=?,`Comportement`=? where id_rdv="+value;
+            
             pst = conn.prepareStatement(query);
             pst.setString(1, rdate);
             pst.setString(2, txtheure.getSelectedItem().toString());
             pst.setString(3, txtprix.getText());
             pst.setString(4, txtreglement.getSelectedItem().toString());
-
+            pst.setString(5, an.getSelectedItem().toString());
+            pst.setString(6, mo.getText());
+            pst.setString(7, po.getText());
+            pst.setString(8, co.getText());
 
             pst.executeUpdate();
             DefaultTableModel model = (DefaultTableModel)modiftable.getModel();
@@ -332,7 +365,10 @@ public class ModifRdv extends javax.swing.JFrame {
         txtheure.setSelectedItem(model.getValueAt(i,2  ).toString());
         txtprix.setText(model.getValueAt(i,3).toString());
         txtreglement.setSelectedItem(model.getValueAt(i,4).toString());
-        txtidp.setText(model.getValueAt(i,5).toString());
+        an.setSelectedItem(model.getValueAt(i,5).toString());
+        mo.setText(model.getValueAt(i,6).toString());
+        po.setText(model.getValueAt(i,7).toString());
+        co.setText(model.getValueAt(i,8).toString());
       }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
         }
@@ -381,12 +417,16 @@ public class ModifRdv extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> an;
+    private javax.swing.JTextField co;
     private javax.swing.JButton delete;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField mo;
     private javax.swing.JTable modiftable;
+    private javax.swing.JTextField po;
     private com.toedter.calendar.JDateChooser txtdate;
     private javax.swing.JComboBox<String> txtheure;
     private javax.swing.JLabel txtidp;

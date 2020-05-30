@@ -14,13 +14,13 @@ public class Rdv {
     private String heure;
     private int prix;
     private String reglement;
-    private int anxiete;
+    private String anxiete;
     private String mots_clef;
     private String postures;
     private String comportement;
     private int id_patient;
     
-    public Rdv(int id_rdv, Date date, String heure, int prix, String reglement, int anxiete, String mots_clef, String postures, String comportement, int id_patient) {
+    public Rdv(int id_rdv, Date date, String heure, int prix, String reglement, String anxiete, String mots_clef, String postures, String comportement, int id_patient) {
         this.id_rdv = id_rdv;
         this.date = date;
         this.heure = heure;
@@ -57,7 +57,7 @@ public class Rdv {
         return reglement;
     }
 
-    public int getAnxiete() {
+    public String getAnxiete() {
         return anxiete;
     }
 

@@ -62,7 +62,7 @@ public class Listerdv extends javax.swing.JFrame {
                                      rs.getString("Heure"),
                                      rs.getInt("Prix"),
                                      rs.getString("Reglement"),
-                                     rs.getInt("Anxiete"),
+                                     rs.getString("Anxiete"),
                                      rs.getString("Mots_clef"),
                                      rs.getString("Postures"),
                                      rs.getString("Comportement"),
@@ -160,7 +160,6 @@ public class Listerdv extends javax.swing.JFrame {
         mo = new javax.swing.JLabel();
         po = new javax.swing.JLabel();
         co = new javax.swing.JLabel();
-        txtndprenom = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -222,17 +221,12 @@ public class Listerdv extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(151, 151, 151)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(151, 151, 151)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(mo)
-                                    .addComponent(po)
-                                    .addComponent(co)
-                                    .addComponent(an, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(txtndprenom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(mo)
+                            .addComponent(po)
+                            .addComponent(co)
+                            .addComponent(an, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -248,7 +242,7 @@ public class Listerdv extends javax.swing.JFrame {
                             .addComponent(findPatient)
                             .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(an, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,9 +251,7 @@ public class Listerdv extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(po)
                         .addGap(27, 27, 27)
-                        .addComponent(co)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtndprenom, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(co)))
                 .addGap(35, 35, 35)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -343,7 +335,6 @@ Deplace();        // TODO add your handling code here:
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel mo;
     private javax.swing.JLabel po;
-    private javax.swing.JLabel txtndprenom;
     private javax.swing.JTextField txtsearch;
     // End of variables declaration//GEN-END:variables
 }
