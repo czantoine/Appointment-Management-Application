@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  sam. 09 mai 2020 à 13:15
+-- Généré le :  sam. 30 mai 2020 à 10:02
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.8
 
@@ -22,6 +22,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `patient` (
   `id_patient` int(11) NOT NULL,
+  `type` varchar(10) NOT NULL DEFAULT 'Patient',
   `Nom` varchar(50) NOT NULL,
   `Prenom` varchar(50) NOT NULL,
   `Nd_Prenom` varchar(50) NOT NULL,
@@ -38,10 +39,13 @@ CREATE TABLE `patient` (
 -- Déchargement des données de la table `patient`
 --
 
-INSERT INTO `patient` (`id_patient`, `Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`, `email`, `password`) VALUES
-(4, 'Billy', 'Elish ', 'testyeee', 'Autre', 'Bouche à oreille', 'Singer', 'Dancer', 'Femme', 'bylli@email.com', ''),
-(8, 'Ah', 'Billy', 'Robert', 'Homme', 'Docteur', 'efreiens', 'chauffeur', 'Ado', 'ahbilly@gmail.com', 'a'),
-(17, 'Billy', 'Elish ', 'test', 'Autre', 'Docteur', 'Singer', 'Dancer', 'Femme', 'bylli@email.com', '');
+INSERT INTO `patient` (`id_patient`, `type`, `Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`, `email`, `password`) VALUES
+(0, 'admin', 'admin', 'admin', '', '', '', '', '', 'Enfant', 'admin@gmail.com', 'azerty'),
+(4, 'patient', 'Billy', 'Elish ', 'kebab', 'Autre', 'Bouche à oreille', 'Singer', 'Dancer', 'Femme', 'bylli@email.com', ''),
+(8, 'patient', 'Ah', 'Billy', 'Robert', 'Homme', 'Docteur', 'efreiens', 'chauffeur', 'Ado', 'ahbilly@gmail.com', ''),
+(17, 'patient', 'Billy', 'Elish ', 'test', 'Autre', 'Docteur', 'Singer', 'Dancer', 'Femme', 'bylli@email.com', ''),
+(19, 'Patient', 'a', 'a', 'a', 'Homme', 'Autre patient', '', '', 'Enfant', 'a', ''),
+(20, 'Patient', 'b', 'b', '', 'Homme', 'Autre patient', '', '', 'Enfant', 'b', 'b');
 
 -- --------------------------------------------------------
 
@@ -63,29 +67,9 @@ CREATE TABLE `rdv` (
 --
 
 INSERT INTO `rdv` (`id_rdv`, `Date`, `Heure`, `Prix`, `Reglement`, `id_patient`) VALUES
-(7, '2021-04-21', '18:00', 20, 'Cheque', 8);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `spy`
---
-
-CREATE TABLE `spy` (
-  `id_psy` int(11) NOT NULL,
-  `Nom` varchar(50) NOT NULL,
-  `Prenom` varchar(50) NOT NULL,
-  `Num_phone` int(10) NOT NULL,
-  `email` varchar(320) NOT NULL,
-  `password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Déchargement des données de la table `spy`
---
-
-INSERT INTO `spy` (`id_psy`, `Nom`, `Prenom`, `Num_phone`, `email`, `password`) VALUES
-(1, 'cichowicz', 'antoine', 651607802, 'ac11f@free.fr', '12345');
+(7, '2021-04-21', '18:00', 20, 'Cheque', 8),
+(11, '2020-05-09', '09:00', 32, 'Espèce', 8),
+(12, '2020-05-02', '08:30', 2, 'Espèce', 8);
 
 --
 -- Index pour les tables déchargées
@@ -106,12 +90,6 @@ ALTER TABLE `rdv`
   ADD KEY `fk_patient` (`id_patient`);
 
 --
--- Index pour la table `spy`
---
-ALTER TABLE `spy`
-  ADD PRIMARY KEY (`id_psy`);
-
---
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -119,19 +97,13 @@ ALTER TABLE `spy`
 -- AUTO_INCREMENT pour la table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_patient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `rdv`
 --
 ALTER TABLE `rdv`
-  MODIFY `id_rdv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT pour la table `spy`
---
-ALTER TABLE `spy`
-  MODIFY `id_psy` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_rdv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Contraintes pour les tables déchargées
