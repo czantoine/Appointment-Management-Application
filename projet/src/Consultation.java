@@ -2,13 +2,14 @@
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+        
+        
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,6 +24,11 @@ import javax.swing.table.DefaultTableModel;
 public class Consultation extends javax.swing.JFrame {
     static String test;
     
+    Connection conn = null;
+    Statement st = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
+    
     public Consultation() {
         initComponents();
         Toolkit toolkit = getToolkit();
@@ -31,27 +37,15 @@ public class Consultation extends javax.swing.JFrame {
         findRdv();
     }
     
-    public Connection getConnection(){
-        Connection con = null;
-        
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null, e);
-            
-        }
-        return con;
-    }
+   
     
     public ArrayList<Rdv> ListRdv(String ValToSearch){
         ArrayList<Rdv> rdvList = new ArrayList<Rdv>();
         
-        Statement st;
-        ResultSet rs;
+      conn = SQLConnection.connectDB();
  
         try{
-            Connection con = getConnection();
-            st = con.createStatement();
+           
             String searchQuery = "SELECT * FROM `rdv` WHERE CONCAT (`id_patient`) LIKE '%"+ValToSearch+"%'";
             rs = st.executeQuery (searchQuery);
             

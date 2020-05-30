@@ -2,7 +2,7 @@
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 public class ModifPatient extends javax.swing.JFrame {
+     Connection conn = null;
+    Statement st = null;
+    ResultSet rs = null;
     PreparedStatement pst = null;
    
     public ModifPatient() {
@@ -22,35 +25,26 @@ public class ModifPatient extends javax.swing.JFrame {
         show_user();
     }
     
-    public Connection getConnection(){
-        Connection con = null;
-        
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null, e);
-            
-        }
-        return con;
-    }
+  
     
     public ArrayList<Patient>ListPatient(){
         ArrayList<Patient> patientList = new ArrayList<>();
+             conn = SQLConnection.connectDB();
         
-        Statement st;
-        ResultSet rs;
+ 
         
         try{
-            Connection con = getConnection();
-            st = con.createStatement();
+ 
+            st = conn.createStatement();
             String query1 = "SELECT * FROM patient";
-            st = con.createStatement();
+            st = conn.createStatement();
             rs = st.executeQuery(query1);
             Patient patient;
             
             while(rs.next()){
                 patient = new Patient(
                                      rs.getInt("id_patient"),
+                                     rs.getString("type"),
                                      rs.getString("Nom"),
                                      rs.getString("Prenom"),
                                      rs.getString("Email"),
@@ -72,7 +66,7 @@ public class ModifPatient extends javax.swing.JFrame {
     public void show_user(){
         ArrayList<Patient> list = ListPatient();
         DefaultTableModel model = (DefaultTableModel)modiftable.getModel();
-         model.setColumnIdentifiers(new Object[]{"id_patient","Nom","Prenom","Email","Nd_Prenom","Sexe","Connaissance","Profession_actuelle","Profession_anterieur","Classification"});
+        model.setColumnIdentifiers(new Object[]{"id_patient","Nom","Prenom","Email","Nd_Prenom","Sexe","Connaissance","Profession_actuelle","Profession_anterieur","Classification"});
         Object[] row = new Object [10];
         
         for(int i = 0; i < list.size(); i++){
@@ -131,6 +125,12 @@ public class ModifPatient extends javax.swing.JFrame {
         jLabel1.setText("Modifier un patient");
 
         jLabel4.setText("Second Prénom :");
+
+        txtNd_Prenom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNd_PrenomActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Classification :");
 
@@ -362,12 +362,12 @@ public class ModifPatient extends javax.swing.JFrame {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
          try{
-            Connection con = getConnection();
+
             int row = modiftable.getSelectedRow();
             String value = (modiftable.getModel().getValueAt(row,0).toString());
             String query = "UPDATE `patient` SET `Nom`=?,`Prenom`=?,`Nd_Prenom`=?,`Sexe`=?,`Connaissance`=?,`Profession_actuelle`=?,`Profession_anterieur`=?,`Classification`=?,`email`=?,`password`=? where id_patient="+value;
             
-            PreparedStatement pst = con.prepareStatement(query);
+            PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, txtNom.getText());
             pst.setString(2, txtPrenom.getText());
             pst.setString(3, txtNd_Prenom.getText()); 
@@ -394,12 +394,12 @@ public class ModifPatient extends javax.swing.JFrame {
         int opt = JOptionPane.showConfirmDialog(null, "Supprimer le patient, cette action est irréversible","Supprimé", JOptionPane.YES_NO_OPTION);
         if(opt==0){
         try{
-            Connection con = getConnection();
+
             int row = modiftable.getSelectedRow();
             String value = (modiftable.getModel().getValueAt(row,0).toString());
             String query = "DELETE FROM patient WHERE id_patient="+value;
         
-            PreparedStatement pst = con.prepareStatement(query);
+            PreparedStatement pst = conn.prepareStatement(query);
             pst.executeUpdate();
             DefaultTableModel model = (DefaultTableModel)modiftable.getModel();
             model.setRowCount(0);
@@ -411,6 +411,10 @@ public class ModifPatient extends javax.swing.JFrame {
         }
         }
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void txtNd_PrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNd_PrenomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNd_PrenomActionPerformed
 
     /**
      * @param args the command line arguments

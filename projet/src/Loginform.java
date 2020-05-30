@@ -1,11 +1,13 @@
 
+
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import java.sql.Statement;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,14 +21,18 @@ import javax.swing.JOptionPane;
  */
 public class Loginform extends javax.swing.JFrame {
 
-    /**
-     * Creates new form loginform
-     */
+    Connection conn = null;
+    Statement st = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
+        
+        
     public Loginform() {
         initComponents();
         Toolkit toolkit = getToolkit();
         Dimension size = toolkit.getScreenSize();
         setLocation(size.width/2-getWidth()/2,size.height/2-getHeight()/2);
+        
     }
 
     /**
@@ -42,33 +48,38 @@ public class Loginform extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        email = new javax.swing.JTextField();
-        mdp = new javax.swing.JPasswordField();
+        emailtxt = new javax.swing.JTextField();
+        mdptxt = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         exit = new javax.swing.JButton();
-        choicebox = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
-        jLabel1.setText("RDV Spy");
+        jLabel1.setText("RDV Psy");
 
         jLabel2.setIcon(new javax.swing.ImageIcon("/Users/Antoine/Documents/Efrei/L3/S6/Database/projet-BDD/user.png")); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon("/Users/Antoine/Documents/Efrei/L3/S6/Database/projet-BDD/password.png")); // NOI18N
 
-        email.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        email.addActionListener(new java.awt.event.ActionListener() {
+        emailtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        emailtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailActionPerformed(evt);
+                emailtxtActionPerformed(evt);
             }
         });
 
-        mdp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        mdptxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        mdptxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mdptxtActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Signin");
+        jButton1.setText("Se connecter");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -82,10 +93,10 @@ public class Loginform extends javax.swing.JFrame {
             }
         });
 
-        choicebox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Patient", "Spy", "Admin" }));
-        choicebox.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "patient", "admin" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                choiceboxActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
 
@@ -100,23 +111,22 @@ public class Loginform extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(email))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(mdp, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(exit)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(emailtxt))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(mdptxt, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jButton1))
-                            .addComponent(choicebox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(43, 43, 43)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1)))))
+                    .addComponent(exit))
                 .addGap(218, 245, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -126,17 +136,17 @@ public class Loginform extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mdptxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(choicebox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(exit))
         );
 
@@ -154,79 +164,84 @@ public class Loginform extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+    private void emailtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailtxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailActionPerformed
-
+    }//GEN-LAST:event_emailtxtActionPerformed
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       try{
-           Class.forName("com.mysql.cj.jdbc.Driver");
-           Connection con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
-        
-           if (choicebox.getSelectedIndex() == 0){
-                String sql = "Select * from patient where prenom=? and password=?" ;
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, email.getText());
-                pst.setString(2, mdp.getText());
-                ResultSet rs = pst.executeQuery();
-                if(rs.next()){
-                    MenuPatient menu1 = new MenuPatient();
-                     menu1.setVisible(true);
-                     setVisible(false);
+        conn = SQLConnection.connectDB();
+        try{
+            if (emailtxt.getText().isEmpty() || mdptxt.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "ID ou mdp incorrect", "Access Denied", JOptionPane.ERROR_MESSAGE);
                 }
-                else {
-                JOptionPane.showMessageDialog(null,"Identifiant ou mot de passe incorect");
-                email.setText("");
-                mdp.setText("");
-                }
+            String sql = "Select * from patient where email=? and password=? and type=? " ;
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, emailtxt.getText());
+            pst.setString(2, mdptxt.getText());
+            pst.setString(3, (String) jComboBox1.getSelectedItem());
+
+            rs = pst.executeQuery();
+             System.out.println(jComboBox1.getSelectedItem());
+            
+            if(rs.next()){
+                
+                 String username = emailtxt.getText();
+                 String pass = mdptxt.getText();
+                 String type = (String) jComboBox1.getSelectedItem();
+                 
+                 
+                 User current = new User(username, pass, type); 
+              
+                if (current.getType() == "admin") {
+             
+
+                            java.awt.EventQueue.invokeLater(new Runnable() {
+                                public void run() {
+                                    new Mainmenu().setVisible(true); //Page admin
+
+                                }
+                            });
+                            
+                } else if (current.getType() == "Patient") {
+                      
+
+                            java.awt.EventQueue.invokeLater(new Runnable() {
+                                public void run() {
+                                    new MenuPatient().setVisible(true); //Page patient
+
+                                }
+                            });
+
+                        }
+       
+                 this.dispose(); //eteindre la page Login
+                        rs.close();
+                        pst.close();  
+                   
+                  
             }
-            else if (choicebox.getSelectedIndex() == 1){ 
-                String sql = "Select * from spy where prenom=? and password=?" ;
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, email.getText());
-                pst.setString(2, mdp.getText());
-                ResultSet rs = pst.executeQuery();
-                if(rs.next()){
-                    Mainmenu menu = new Mainmenu();
-                     menu.setVisible(true);
-                     setVisible(false);
-                }
-                else {
-                JOptionPane.showMessageDialog(null,"Identifiant ou mot de passe incorect");
-                email.setText("");
-                mdp.setText("");
-                }
-            }
-            else if (choicebox.getSelectedIndex() == 2){ 
-                String sql = "Select * from admin where prenom=? and password=?" ;
-                PreparedStatement pst = con.prepareStatement(sql);
-                pst.setString(1, email.getText());
-                pst.setString(2, mdp.getText());
-                ResultSet rs = pst.executeQuery();
-                if(rs.next()){
-                    Mainmenu menu = new Mainmenu();
-                     menu.setVisible(true);
-                     setVisible(false);
-                }
-                else {
-                JOptionPane.showMessageDialog(null,"Identifiant ou mot de passe incorect");
-                email.setText("");
-                mdp.setText("");
-                }            
-            }
-            con.close();                        
+                 
+               
+           
+                              
         }catch(Exception e){
-            JOptionPane.showMessageDialog(null,e);
+             JOptionPane.showMessageDialog(null, "Mail, password or type of user not recognized", "Access Denied", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    
+    
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitActionPerformed
 
-    private void choiceboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choiceboxActionPerformed
+    private void mdptxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mdptxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_choiceboxActionPerformed
+    }//GEN-LAST:event_mdptxtActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,15 +280,15 @@ public class Loginform extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> choicebox;
-    private javax.swing.JTextField email;
+    private javax.swing.JTextField emailtxt;
     private javax.swing.JButton exit;
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField mdp;
+    private javax.swing.JPasswordField mdptxt;
     // End of variables declaration//GEN-END:variables
 
     private void setVisble(boolean b) {

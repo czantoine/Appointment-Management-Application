@@ -1,13 +1,18 @@
 
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 
+
 public class Enregistrerpatient extends javax.swing.JFrame {
-    Connection con = null;
+    Connection conn = null;
+    Statement st = null;
+    ResultSet rs = null;
     PreparedStatement pst = null;
     
     
@@ -293,11 +298,12 @@ public class Enregistrerpatient extends javax.swing.JFrame {
         else if (txtMotdepasse.getText().trim().isEmpty()){
             btxtMotdepasse.setText("Champ requis");
         }
-        else {           
+        else {   
+             conn = SQLConnection.connectDB();
         try{
             String query = "INSERT INTO `patient`(`Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`,`email`,`password`) VALUES (?,?,?,?,?,?,?,?,?,?) ";
-            con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
-            pst = con.prepareStatement(query);
+            
+            pst = conn.prepareStatement(query);
             pst.setString(1, txtNom.getText());
             pst.setString(2, txtPrenom.getText());
             pst.setString(3, txtNd_Prenom.getText());

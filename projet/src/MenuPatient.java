@@ -1,8 +1,11 @@
 
+
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -18,6 +21,11 @@ import javax.swing.JOptionPane;
  * @author Antoine
  */
 public class MenuPatient extends javax.swing.JFrame {
+    
+     Connection conn = null;
+    Statement st = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
 
     /**
      * Creates new form MenuPatient
@@ -31,9 +39,9 @@ public class MenuPatient extends javax.swing.JFrame {
         
         try{
             
-            Connection con = getConnection();
+   
             String query = "Select * From patient";
-            Statement statement = con.createStatement();
+            Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query); 
             while (resultSet.next()){
                 JReturnNom.setText("Bonjour "+resultSet.getString(3)+" "+resultSet.getString(2));
@@ -44,9 +52,9 @@ public class MenuPatient extends javax.swing.JFrame {
         }    
         
         try{
-            Connection con = getConnection();
+        
             String query = "Select * From rdv";
-            Statement statement = con.createStatement();
+            Statement statement = conn.createStatement();
             ResultSet resultSet = statement.executeQuery(query); 
             while (resultSet.next()){
                 JReturnRDV.setText("Votre prochain rendez-vous est planifié au "+resultSet.getString(2)+" "+resultSet.getString(3));            
@@ -57,17 +65,6 @@ public class MenuPatient extends javax.swing.JFrame {
     }
     
     
-    public Connection getConnection(){
-        Connection con = null;
-        
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null, e);
-            
-        }
-        return con;
-    }
     
     
    

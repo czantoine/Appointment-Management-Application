@@ -1,3 +1,5 @@
+
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.*;
@@ -5,11 +7,21 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+
 
 
 
 public class ListPatients extends javax.swing.JFrame {  
     static String test;
+    
+    Connection conn = null;
+    Statement st = null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
      
 
     public ListPatients() {
@@ -21,28 +33,17 @@ public class ListPatients extends javax.swing.JFrame {
 
     } 
     
-    public Connection getConnection(){
-        Connection con = null;
-        
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null, e);
-            
-        }
-        return con;
-    }
+    
     
     public ArrayList<Patient> ListPatient(String ValToSearch){
         ArrayList<Patient> patientList = new ArrayList<Patient>();
-        
-        Statement st;
-        ResultSet rs;
+        conn = SQLConnection.connectDB();
+       
         
         try{
-            Connection con = getConnection();
-            st = con.createStatement();
-            String searchQuery = "SELECT * FROM `patient` WHERE CONCAT (`id_patient`, `Nom`, `Prenom`,`Email`,`Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`) LIKE '%"+ValToSearch+"%'";
+        
+            st = conn.createStatement();
+            String searchQuery = "SELECT * FROM `patient` WHERE CONCAT (`id_patient`,`type`, `Nom`, `Prenom`,`Email`,`Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`) LIKE '%"+ValToSearch+"%'";
             rs = st.executeQuery (searchQuery);
                     
             Patient patient;
@@ -50,6 +51,7 @@ public class ListPatients extends javax.swing.JFrame {
             while (rs.next()){
                 patient = new Patient(
                                      rs.getInt("id_patient"),
+                                     rs.getString("type"),
                                      rs.getString("Nom"),
                                      rs.getString("Prenom"),
                                      rs.getString("Email"),
@@ -97,15 +99,15 @@ public class ListPatients extends javax.swing.JFrame {
     }
     
     public void Deplace(){
-        ResultSet rs;
-        
+   
+            conn = SQLConnection.connectDB();
         try{
-            Connection con = getConnection();
+   
             int row = TableSearchPatient.getSelectedRow();
             this.test =(TableSearchPatient.getModel().getValueAt(row,0).toString());
             String requet = "SELECT * FROM patient where id_patient = '"+test+"' ";
-            PreparedStatement st = con.prepareStatement(requet);
-            st = con.prepareStatement(requet);
+            PreparedStatement st = conn.prepareStatement(requet);
+            st = conn.prepareStatement(requet);
             
             rs = st.executeQuery();
             

@@ -1,14 +1,17 @@
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import java.text.SimpleDateFormat;
 
 public class AjouterRDV extends javax.swing.JFrame {  
-    Connection con = null;
+     Connection conn = null;
+    Statement st = null;
+    ResultSet rs = null;
     PreparedStatement pst = null;
  
     public AjouterRDV() {
@@ -194,13 +197,13 @@ public class AjouterRDV extends javax.swing.JFrame {
      
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         String rdate= dateformat.format(txtdate.getDate());
-        
+        conn = SQLConnection.connectDB();
         try{
             
             PreparedStatement pst;
             String query = "INSERT INTO `rdv`(`Date`,`heure`, `Prix`, `Reglement`, `id_patient`) VALUES (?,?,?,?,?) ";
-            con = DriverManager.getConnection("jdbc:mysql://localhost:8889/Projet?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","root");
-            pst = con.prepareStatement(query);
+            
+            pst = conn.prepareStatement(query);
             pst.setString(1, rdate);
             pst.setString(2, txtheure.getSelectedItem().toString());
             pst.setString(3, txtprix.getText());

@@ -1,6 +1,8 @@
 
+
 public class Patient {
     private int id_patient;
+    private String type;
     private String nom;
     private String prenom;
     private String email;
@@ -11,8 +13,9 @@ public class Patient {
     private String profession_anterieur;
     private String classification;
 
-    public Patient(int id_patient, String nom, String prenom, String email, String nd_prenom, String sexe, String connaissance, String profession_actuelle, String profession_anterieur, String classification) {
+    public Patient(int id_patient, String type, String nom, String prenom, String email, String nd_prenom, String sexe, String connaissance, String profession_actuelle, String profession_anterieur, String classification) {
         this.id_patient = id_patient;
+        this.type = type;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -22,6 +25,10 @@ public class Patient {
         this.profession_actuelle = profession_actuelle;
         this.profession_anterieur = profession_anterieur;
         this.classification = classification;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public int getId_patient() {
