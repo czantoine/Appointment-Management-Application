@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  sam. 30 mai 2020 à 10:02
+-- Généré le :  Dim 31 mai 2020 à 12:30
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.3.8
 
@@ -13,6 +13,25 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `Projet`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `archive`
+--
+
+CREATE TABLE `archive` (
+  `id_archive` int(11) NOT NULL,
+  `Date` date NOT NULL,
+  `Heure` varchar(10) NOT NULL,
+  `Prix` int(3) NOT NULL,
+  `Reglement` varchar(50) NOT NULL,
+  `Anxiete` varchar(12) NOT NULL,
+  `Mots_clef` varchar(200) NOT NULL,
+  `Postures` varchar(200) NOT NULL,
+  `Comportement` varchar(50) NOT NULL,
+  `id_patient` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -42,7 +61,7 @@ CREATE TABLE `patient` (
 INSERT INTO `patient` (`id_patient`, `type`, `Nom`, `Prenom`, `Nd_Prenom`, `Sexe`, `Connaissance`, `Profession_actuelle`, `Profession_anterieur`, `Classification`, `email`, `password`) VALUES
 (0, 'admin', 'admin', 'admin', '', '', '', '', '', 'Enfant', 'admin@gmail.com', 'azerty'),
 (4, 'patient', 'Billy', 'Elish ', 'kebab', 'Autre', 'Bouche à oreille', 'Singer', 'Dancer', 'Femme', 'bylli@email.com', ''),
-(8, 'patient', 'Ah', 'Billy', 'Robert', 'Homme', 'Docteur', 'efreiens', 'chauffeur', 'Ado', 'ahbilly@gmail.com', ''),
+(8, 'patient', 'Ah', 'Billy', 'Roh', 'Homme', 'Docteur', 'efreiens', 'chauffeur', 'Ado', 'ahbilly@gmail.com', ''),
 (17, 'patient', 'Billy', 'Elish ', 'test', 'Autre', 'Docteur', 'Singer', 'Dancer', 'Femme', 'bylli@email.com', ''),
 (19, 'Patient', 'a', 'a', 'a', 'Homme', 'Autre patient', '', '', 'Enfant', 'a', ''),
 (20, 'Patient', 'b', 'b', '', 'Homme', 'Autre patient', '', '', 'Enfant', 'b', 'b');
@@ -59,6 +78,10 @@ CREATE TABLE `rdv` (
   `Heure` varchar(10) NOT NULL,
   `Prix` int(3) NOT NULL,
   `Reglement` varchar(50) NOT NULL,
+  `Anxiete` varchar(12) NOT NULL,
+  `Mots_clef` varchar(200) NOT NULL,
+  `Postures` varchar(200) NOT NULL,
+  `Comportement` varchar(50) NOT NULL,
   `id_patient` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -66,14 +89,28 @@ CREATE TABLE `rdv` (
 -- Déchargement des données de la table `rdv`
 --
 
-INSERT INTO `rdv` (`id_rdv`, `Date`, `Heure`, `Prix`, `Reglement`, `id_patient`) VALUES
-(7, '2021-04-21', '18:00', 20, 'Cheque', 8),
-(11, '2020-05-09', '09:00', 32, 'Espèce', 8),
-(12, '2020-05-02', '08:30', 2, 'Espèce', 8);
+INSERT INTO `rdv` (`id_rdv`, `Date`, `Heure`, `Prix`, `Reglement`, `Anxiete`, `Mots_clef`, `Postures`, `Comportement`, `id_patient`) VALUES
+(7, '2021-04-21', '18:00', 25, 'Cheque', '0', '0', '0', '', 8),
+(12, '2020-05-09', '08:30', 3, 'Carte Bleue', '', '', '', '', 8),
+(14, '2020-05-08', '10:00', 31, 'Espèce', '3', 'zegrht', 'egrhdsqe', 'fgqfgqdggdsefezfez', 8),
+(15, '2020-05-08', '10:00', 31, 'Espèce', '3', 'zegrht', 'egrhdsqe', 'fgqfgqdggds', 8),
+(16, '2020-05-09', '09:30', 32, 'Carte Bleue', 'an', 'jLabel8', 'jLabel9', 'jLabel10', 8),
+(17, '2020-05-03', '09:00', 24141, 'Carte Bleue', '5', 'eqfqgh,zgjqz', 'grsbsfbqdbdqb', 'bsbsbsbssdfdbxbfsbsngejb j ofh jgzo', 8),
+(19, '2020-05-16', '09:00', 23, 'Espèce', '', '', '', '', 8),
+(20, '2020-05-16', '08:30', 23, 'Espèce', '', '', '', '', 8);
 
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `archive`
+--
+ALTER TABLE `archive`
+  ADD PRIMARY KEY (`id_archive`),
+  ADD KEY `fk1` (`id_archive`),
+  ADD KEY `fk_patient` (`id_patient`),
+  ADD KEY `id_rdv` (`id_archive`);
 
 --
 -- Index pour la table `patient`
@@ -87,11 +124,18 @@ ALTER TABLE `patient`
 ALTER TABLE `rdv`
   ADD PRIMARY KEY (`id_rdv`),
   ADD KEY `fk1` (`id_rdv`),
-  ADD KEY `fk_patient` (`id_patient`);
+  ADD KEY `fk_patient` (`id_patient`),
+  ADD KEY `id_rdv` (`id_rdv`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `archive`
+--
+ALTER TABLE `archive`
+  MODIFY `id_archive` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `patient`
@@ -103,7 +147,7 @@ ALTER TABLE `patient`
 -- AUTO_INCREMENT pour la table `rdv`
 --
 ALTER TABLE `rdv`
-  MODIFY `id_rdv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_rdv` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Contraintes pour les tables déchargées
