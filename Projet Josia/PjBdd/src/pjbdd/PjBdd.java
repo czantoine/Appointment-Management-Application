@@ -15,8 +15,8 @@ public class PjBdd {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);//C'est ca qu'il faut lancer au DEPART
-                //new MainPage().setVisible(false); //deuxieme page
+                //new Login().setVisible(true);//C'est ca qu'il faut lancer au DEPART
+                new MainPage().setVisible(true); //deuxieme page
                 //new AddPatient().setVisible(true);
             }
         });

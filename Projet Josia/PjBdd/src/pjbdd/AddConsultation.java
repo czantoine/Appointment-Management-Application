@@ -626,7 +626,7 @@ public class AddConsultation extends javax.swing.JFrame implements ActionListene
 
                                                 PreparedStatement pstm = conn.prepareStatement("INSERT INTO mots_cle (id_consult) VALUES (?)");
                                                 pstm.setInt(1, ids.get(0));
-                                                pstm.execute(); 
+                                                pstm.execute();
 
                                                 JOptionPane.showMessageDialog(null, "Consulte inserted.");
                                                 DefaultTableModel model1 = (DefaultTableModel) jTable1.getModel();
